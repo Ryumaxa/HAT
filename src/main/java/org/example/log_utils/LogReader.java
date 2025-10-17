@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Инструмент для чтения логов через ADB и поиска логов по фильтру
  */
+// TODO: предусмотреть логику фильтрации по ИЛИ
 public class LogReader {
     private final int logcatDelay; // Задержка на формирование лога после воздействия, мс
     private final LogBuffer<String> buffer;

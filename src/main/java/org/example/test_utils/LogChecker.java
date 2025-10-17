@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 public class LogChecker {
 
     public static boolean checkLogsInBackground(Runnable testAction, String... filters) {
-        return checkLogsInBackground(testAction, 10, 6000, filters);
+        return checkLogsInBackground(testAction, 10, 5000, filters);
     }
 
     public static boolean checkLogsInBackground(Runnable testAction, int bufferSize, int timeoutMs, String... filters) {
@@ -22,7 +22,7 @@ public class LogChecker {
 
         try {
             testAction.run();
-            return future.get(timeoutMs, TimeUnit.MILLISECONDS);
+            return future.get(timeoutMs + 10, TimeUnit.MILLISECONDS);
         } catch (TimeoutException e) {
             future.cancel(true);
             throw new RuntimeException("Проверка логов превысила таймаут", e);
