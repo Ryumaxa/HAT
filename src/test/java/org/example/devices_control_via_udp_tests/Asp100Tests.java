@@ -1,5 +1,7 @@
 package org.example.devices_control_via_udp_tests;
 
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
 import org.example.test_utils.LogChecker;
@@ -19,7 +21,8 @@ public class Asp100Tests {
     void whenAsp100CardClicked_shouldOpenAsp100Card() {
         try (CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver()) {
             boolean logsFound = LogChecker.checkLogsInBackground(
-                    () -> driver.findElement(By.id("btnAction")).click(), "AddDeviceViewModel"
+                    () -> driver.findElement(By.xpath("//*[@text='ASP100 TEST']")).click(), "AddDeviceViewModel"
+                    // TODO: здесь сделать первый тест не по логам, а по видимости кнопок в карточке устройства + название вверху должно соответствовать
             );
             Assertions.assertTrue(logsFound, "Логи не содержат информации об открытом экране \"Добавить устройство\"");
         }
