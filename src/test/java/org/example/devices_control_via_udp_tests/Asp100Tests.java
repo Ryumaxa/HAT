@@ -17,16 +17,16 @@ public class Asp100Tests {
             driver = DriverBuilder.getAndroidDriver();
             // Проверка, что карточка открылась
             boolean isCardOpened = LogChecker.checkLogsInBackground(
-                    () -> driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + BalluAsp100MainScreen.DEVICE_NAME + "\"));")).click(), "DeviceConnectionViewModel", "deviceType=69"
+                    () -> driver.select(BalluAsp100MainScreen.DEVICE_CARD).click(), "DeviceConnectionViewModel", "deviceType=69"
             );
             Assertions.assertTrue(isCardOpened);
             // Проверка, что устройство отключено (в противном случае отключение с повторной проверкой)
             boolean isDeviceOff = LogChecker.checkLogsInBackground(
-                    () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.POWER_ON_OFF_BUTTON)).click(), "DeviceUtils", "mode=00"
+                    () -> driver.select(BalluAsp100MainScreen.POWER_ON_OFF_BUTTON).click(), "DeviceUtils", "mode=00"
             );
             if (!isDeviceOff) {
                 isDeviceOff = LogChecker.checkLogsInBackground(
-                        () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.POWER_ON_OFF_BUTTON)).click(), "DeviceUtils", "mode=00"
+                        () -> driver.select(BalluAsp100MainScreen.POWER_ON_OFF_BUTTON).click(), "DeviceUtils", "mode=00"
                 );
             }
             Assertions.assertTrue(isDeviceOff);
@@ -43,7 +43,7 @@ public class Asp100Tests {
     @Test
     void whenFanModeButtonClicked_shouldSwitchToMode5() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.FAN_MODE_BUTTON)).click(), "DeviceUtils", "mode=05"
+                () -> driver.select(BalluAsp100MainScreen.FAN_MODE_BUTTON).click(), "DeviceUtils", "mode=05"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -51,7 +51,7 @@ public class Asp100Tests {
     @Test
     void whenNightModeButtonClicked_shouldSwitchToMode3() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.NIGHT_MODE_BUTTON)).click(), "DeviceUtils", "mode=03"
+                () -> driver.select(BalluAsp100MainScreen.NIGHT_MODE_BUTTON).click(), "DeviceUtils", "mode=03"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -59,25 +59,25 @@ public class Asp100Tests {
     @Test
     void whenTurboModeButtonClicked_shouldSwitchToMode4() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.TURBO_MODE_BUTTON)).click(), "DeviceUtils", "mode=04"
+                () -> driver.select(BalluAsp100MainScreen.TURBO_MODE_BUTTON).click(), "DeviceUtils", "mode=04"
         );
         Assertions.assertTrue(logsFound);
     }
 
-//    @Test
-//    void whenMelodiesButtonClicked_shouldPrintLogsAboutMelodies() {
-//        boolean logsFound = LogChecker.checkLogsInBackground(
-//                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click(), "DeviceControlsUtils", "Melodies"
-//        );
-//        Assertions.assertTrue(logsFound);
-//        driver.navigate().back();
-//    }
+    @Test
+    void whenMelodiesButtonClicked_shouldPrintLogsAboutMelodies() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.select(BalluAsp100MainScreen.MELODIES_BUTTON).click(), "DeviceControlsUtils", "Melodies"
+        );
+        Assertions.assertTrue(logsFound);
+        driver.navigate().back();
+    }
 
     @Test
     void whenRainSoundButtonClicked_shouldPrintLogsAboutAmountValueIs1() {
         driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.RAIN_SOUND_BUTTON)).click(), "DeviceUtils", "value=1"
+                () -> driver.select(BalluAsp100MainScreen.RAIN_SOUND_BUTTON).click(), "DeviceUtils", "value=1"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -86,7 +86,7 @@ public class Asp100Tests {
     void whenSeaSoundButtonClicked_shouldPrintLogsAboutAmountValueIs2() {
         driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.SEA_SOUND_BUTTON)).click(), "DeviceUtils", "value=2"
+                () -> driver.select(BalluAsp100MainScreen.SEA_SOUND_BUTTON).click(), "DeviceUtils", "value=2"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -94,9 +94,8 @@ public class Asp100Tests {
     @Test
     void whenForestSoundButtonClicked_shouldPrintLogsAboutAmountValueIs3() {
         driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
-        driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.FOREST_SOUND_BUTTON)).isDisplayed();
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.FOREST_SOUND_BUTTON)).click(), "DeviceUtils", "value=3"
+                () -> driver.select(BalluAsp100MainScreen.FOREST_SOUND_BUTTON).click(), "DeviceUtils", "value=3"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -105,7 +104,7 @@ public class Asp100Tests {
     void whenBirdsSoundButtonClicked_shouldPrintLogsAboutAmountValueIs4() {
         driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.BIRDS_SOUND_BUTTON)).click(), "DeviceUtils", "value=4"
+                () -> driver.select(BalluAsp100MainScreen.BIRDS_SOUND_BUTTON).click(), "DeviceUtils", "value=4"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -114,7 +113,7 @@ public class Asp100Tests {
     void whenFireSoundButtonClicked_shouldPrintLogsAboutAmountValueIs5() {
         driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.FIRE_SOUND_BUTTON)).click(), "DeviceUtils", "value=5"
+                () -> driver.select(BalluAsp100MainScreen.FIRE_SOUND_BUTTON).click(), "DeviceUtils", "value=5"
         );
         Assertions.assertTrue(logsFound);
     }
