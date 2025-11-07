@@ -3,40 +3,37 @@ package org.example.devices_control_via_udp_tests;
 import io.appium.java_client.AppiumBy;
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
+import org.example.screen_elements.ballu_asp100.BalluAsp100Screen;
 import org.example.test_utils.LogChecker;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-//TODO: запускать драйвер единожды в самом начале, потом использовать готовые методы для вызова каждой кнопки (передавая драйвер в метод)
 public class Asp100Tests {
 
-    final String DEVICE_NAME = "ASP100 TEST";
-    final String CARD_XPATH = String.format("//*[@text='%s']", DEVICE_NAME);
+    static CloseableAndroidDriver driver;
 
-    @BeforeEach
-    void setup() {
-        // TODO: открытие нужной активити перед тестом
-    }
-
-    // TODO: вынести этот тест в стартовые условия (карточка должна бытьоткрыта перед каждым тестом элементов управления)
-    @Test
-    void whenAsp100CardClicked_shouldOpenAsp100Card() {
-        try (CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver()) {
+    @BeforeAll
+    static void setup() {
+        try {
+            driver = DriverBuilder.getAndroidDriver();
             boolean logsFound = LogChecker.checkLogsInBackground(
-                    () -> driver.findElement(AppiumBy.xpath(CARD_XPATH)).click(), "DeviceConnectionViewModel", "deviceType=69"
+                    () -> driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + BalluAsp100Screen.DEVICE_NAME + "\"));")).click(), "DeviceConnectionViewModel", "deviceType=69"
             );
             Assertions.assertTrue(logsFound);
+        } catch (Exception e) {
+            throw new RuntimeException();
         }
     }
 
+    @AfterAll
+    static void close() {
+        driver.quit();
+    }
+
     @Test
-    void whenPowerButtonClicked_shouldOpenAsp100Card() {
-        try (CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver()) {
-            boolean logsFound = LogChecker.checkLogsInBackground(
-                    () -> driver.findElement(AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"com.hommyn.app:id/ltFeature\").instance(6)")).click(), "DeviceUtils", "mode="
-            );
-            Assertions.assertTrue(logsFound);
-        }
+    void whenFanModeButtonClicked_shouldSwitchToMode5() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100Screen.FAN_MODE_BUTTON)).click(), "DeviceUtils", "mode=05"
+        );
+        Assertions.assertTrue(logsFound);
     }
 }

@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Класс-билдер для андроид драйвера
+ * Класс-билдер для андроид-драйвера
  */
 public class DriverBuilder {
 

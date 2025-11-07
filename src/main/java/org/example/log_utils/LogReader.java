@@ -27,7 +27,8 @@ public class LogReader {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
-            while ((line = reader.readLine()) != null && (System.currentTimeMillis() - startSearchingTime <= logcatDelay)) {
+            while ((line = reader.readLine()) != null && (System.currentTimeMillis() - startSearchingTime <= logcatDelay) && buffer.isEmpty()) {
+//                System.out.println(line);
                 if (containsAllSubstrings(line, filters)) {
                     buffer.add(line);
                     System.out.println(line);
