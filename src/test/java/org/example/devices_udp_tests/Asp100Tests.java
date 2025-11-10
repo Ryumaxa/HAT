@@ -1,4 +1,4 @@
-package org.example.devices_control_via_udp_tests;
+package org.example.devices_udp_tests;
 
 import io.appium.java_client.AppiumBy;
 import org.example.launch_utils.CloseableAndroidDriver;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.*;
 public class Asp100Tests {
 
     static CloseableAndroidDriver driver;
+    // TODO: открывать приложение только если оно еще не открыто. после всех тестов уходить в список устройств (смотреть кнопке "+" или "меню"), под это есть тест
 
     @BeforeAll
     static void setup() {
@@ -41,6 +42,63 @@ public class Asp100Tests {
     }
 
     @Test
+    void deviceNameFieldShouldExistAndContainsCorrectName() {
+        Assertions.assertEquals(BalluAsp100MainScreen.DEVICE_NAME, driver.selectById("com.hommyn.app:id/tvDeviceName").getText());
+    }
+
+    @Test
+    void devicePlaceFieldShouldExist() {
+        Assertions.assertTrue(driver.selectById("com.hommyn.app:id/tvDevicePlace").isDisplayed());
+        // TODO: сравнить текст в поле со значением здания и комнаты в логах (д.б.)
+    }
+
+    @Test
+    void co2FieldShouldExist() {
+        Assertions.assertTrue(driver.select("new UiSelector().text(\"CO2 - ppm\")").isDisplayed());
+    }
+
+    @Test
+    void inflowTemperatureFieldShouldExist() {
+        Assertions.assertTrue(driver.select("new UiSelector().text(\"Температура притока\")").isDisplayed());
+    }
+
+    @Test
+    void outdoorAirValuesFieldShouldExist() {
+        Assertions.assertTrue(driver.select("new UiSelector().textContains(\"Наружные показатели в городе\")").isDisplayed());
+    }
+
+    @Test
+    void aqiFieldShouldExist() {
+        Assertions.assertTrue(driver.selectById("com.hommyn.app:id/tvAQISuffix").isDisplayed());
+    }
+
+    @Test
+    void pm25FieldShouldExist() {
+        Assertions.assertTrue(driver.selectById("com.hommyn.app:id/tvPM2Suffix").isDisplayed());
+    }
+
+    @Test
+    void pm10FieldShouldExist() {
+        Assertions.assertTrue(driver.selectById("com.hommyn.app:id/tvPM10Suffix").isDisplayed());
+    }
+
+    @Test
+    void outdoorTemperatureFieldShouldExist() {
+        Assertions.assertTrue(driver.selectById("com.hommyn.app:id/tvTempSuffix").isDisplayed());
+    }
+
+    @Test
+    void speedValueFieldShouldExist() {
+        Assertions.assertTrue(driver.select("new UiSelector().text(\"Cкорость\")").isDisplayed());
+    }
+
+    @Test
+    void targetTemperatureValueFieldShouldExist() {
+        Assertions.assertTrue(driver.select("new UiSelector().text(\"Целевая температура\")").isDisplayed());
+    }
+
+
+    @Test
     void whenFanModeButtonClicked_shouldSwitchToMode5() {
         boolean logsFound = LogChecker.checkLogsInBackground(
                 () -> driver.select(BalluAsp100MainScreen.FAN_MODE_BUTTON).click(), "DeviceUtils", "mode=05"
@@ -55,6 +113,8 @@ public class Asp100Tests {
         );
         Assertions.assertTrue(logsFound);
     }
+
+    // TODO: тут добавить тест режима AUTO
 
     @Test
     void whenTurboModeButtonClicked_shouldSwitchToMode4() {
@@ -116,5 +176,58 @@ public class Asp100Tests {
                 () -> driver.select(BalluAsp100MainScreen.FIRE_SOUND_BUTTON).click(), "DeviceUtils", "value=5"
         );
         Assertions.assertTrue(logsFound);
+    }
+
+    @Test
+    void whenSpeedSliderSwitchedToMinValue_shouldPrintLogsAboutSpeed1() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.leftSliderMin(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=1"
+        );
+        Assertions.assertTrue(logsFound);
+    }
+
+    @Test
+    void whenSpeedSliderSwitchedToMidValue_shouldPrintLogsAboutSpeed4() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.leftSliderMid(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=4"
+        );
+        Assertions.assertTrue(logsFound);
+    }
+
+    @Test
+    void whenSpeedSliderSwitchedToMaxValue_shouldPrintLogsAboutSpeed7() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.leftSliderMax(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=7"
+        );
+        Assertions.assertTrue(logsFound);
+    }
+
+    @Test
+    void whenTemperatureSliderSwitchedToMinValue_shouldPrintLogsAbout5Degrees() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.rightSliderMin(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=5.0"
+        );
+        Assertions.assertTrue(logsFound);
+    }
+
+    @Test
+    void whenTemperatureSliderSwitchedToMidValue_shouldPrintLogsAbout15Degrees() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.rightSliderMid(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=15.0"
+        );
+        Assertions.assertTrue(logsFound);
+    }
+
+    @Test
+    void whenTemperatureSliderSwitchedToMaxValue_shouldPrintLogsAbout25Degrees() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.rightSliderMax(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=25.0"
+        );
+        Assertions.assertTrue(logsFound);
+    }
+
+    @Test
+    void whenBackButtonClicked_shouldOpenDeviceListScreen() {
+        // TODO: нажать кнопку "назад" и удостовериться в выходе в основной активити (сделать это beforeAll)
     }
 }
