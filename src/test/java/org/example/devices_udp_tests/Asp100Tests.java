@@ -9,8 +9,8 @@ import org.junit.jupiter.api.*;
 
 public class Asp100Tests {
 
+    // TODO: предусмотреть переключение с UDP на MQTT в рамках одного теста
     static CloseableAndroidDriver driver;
-    // TODO: открывать приложение только если оно еще не открыто. после всех тестов уходить в список устройств (смотреть кнопке "+" или "меню"), под это есть тест
 
     @BeforeAll
     static void setup() {
@@ -38,6 +38,7 @@ public class Asp100Tests {
 
     @AfterAll
     static void close() {
+        driver.backToDeviceList();
         driver.quit();
     }
 
@@ -114,7 +115,13 @@ public class Asp100Tests {
         Assertions.assertTrue(logsFound);
     }
 
-    // TODO: тут добавить тест режима AUTO
+    @Test
+    void whenAutoModeButtonClicked_shouldSwitchToMode2() {
+        boolean logsFound = LogChecker.checkLogsInBackground(
+                () -> driver.select(BalluAsp100MainScreen.AUTO_MODE_BUTTON).click(), "DeviceUtils", "mode=02"
+        );
+        Assertions.assertTrue(logsFound);
+    }
 
     @Test
     void whenTurboModeButtonClicked_shouldSwitchToMode4() {
@@ -122,6 +129,7 @@ public class Asp100Tests {
                 () -> driver.select(BalluAsp100MainScreen.TURBO_MODE_BUTTON).click(), "DeviceUtils", "mode=04"
         );
         Assertions.assertTrue(logsFound);
+        Assertions.assertTrue(driver.select(BalluAsp100MainScreen.TURBO_TIMER).isDisplayed());
     }
 
     @Test
@@ -224,10 +232,5 @@ public class Asp100Tests {
                 () -> driver.rightSliderMax(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=25.0"
         );
         Assertions.assertTrue(logsFound);
-    }
-
-    @Test
-    void whenBackButtonClicked_shouldOpenDeviceListScreen() {
-        // TODO: нажать кнопку "назад" и удостовериться в выходе в основной активити (сделать это beforeAll)
     }
 }

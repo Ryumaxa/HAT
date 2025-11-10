@@ -3,6 +3,7 @@ package org.example.launch_utils;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.example.screen_elements.ballu_asp100.BalluAsp100MainScreen;
+import org.example.screen_elements.device_list.DeviceListScreen;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -36,7 +37,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
         WebElement slider = this.select(leftSlider);
         Dimension size = slider.getSize();
         new Actions(this)
-                .moveToElement(slider, -size.getWidth()/3, size.getHeight()/4)
+                .moveToElement(slider, -size.getWidth() / 3, size.getHeight() / 4)
                 .click()
                 .perform();
     }
@@ -45,7 +46,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
         WebElement slider = this.select(leftSlider);
         Dimension size = slider.getSize();
         new Actions(this)
-                .moveToElement(slider, size.getWidth()/3, 0)
+                .moveToElement(slider, size.getWidth() / 3, 0)
                 .click()
                 .perform();
     }
@@ -54,25 +55,25 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
         WebElement slider = this.select(leftSlider);
         Dimension size = slider.getSize();
         new Actions(this)
-                .moveToElement(slider, -size.getWidth()/3, -size.getHeight()/4)
+                .moveToElement(slider, -size.getWidth() / 3, -size.getHeight() / 4)
                 .click()
                 .perform();
     }
 
-    public void  rightSliderMin(String rightSlider) {
+    public void rightSliderMin(String rightSlider) {
         WebElement slider = this.select(rightSlider);
         Dimension size = slider.getSize();
         new Actions(this)
-                .moveToElement(slider, size.getWidth()/3, size.getHeight()/4)
+                .moveToElement(slider, size.getWidth() / 3, size.getHeight() / 4)
                 .click()
                 .perform();
     }
 
-    public void  rightSliderMid(String rightSlider) {
+    public void rightSliderMid(String rightSlider) {
         WebElement slider = this.select(rightSlider);
         Dimension size = slider.getSize();
         new Actions(this)
-                .moveToElement(slider, -size.getWidth()/3, 0)
+                .moveToElement(slider, -size.getWidth() / 3, 0)
                 .click()
                 .perform();
     }
@@ -81,10 +82,18 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
         WebElement slider = this.select(rightSlider);
         Dimension size = slider.getSize();
         new Actions(this)
-                .moveToElement(slider, size.getWidth()/3, -size.getHeight()/4)
+                .moveToElement(slider, size.getWidth() / 3, -size.getHeight() / 4)
                 .click()
                 .perform();
     }
 
-
+    public void backToDeviceList() {
+        for (int i = 0; i < 3; i++) {
+            try {
+                this.select(DeviceListScreen.VIEW_CHANGE_BUTTON);
+            } catch (Exception e) {
+                this.navigate().back();
+            }
+        }
+    }
 }

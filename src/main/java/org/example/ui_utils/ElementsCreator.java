@@ -1,8 +1,5 @@
 package org.example.ui_utils;
 
-import io.appium.java_client.AppiumBy;
-import org.example.screen_elements.ballu_asp100.BalluAsp100MainScreen;
-
 /**
  * Класс для создания нужных элементов в модели
  */

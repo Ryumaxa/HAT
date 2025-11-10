@@ -13,6 +13,7 @@ public class BalluAsp100MainScreen {
     // Основные
     public static final String DEVICE_NAME = "ASP-100 TEST";
     public static final String DEVICE_CARD = ELEMENTS_CREATOR.createDeviceCardWithText(DEVICE_NAME);
+    public static final String BACK_BUTTON = "new UiSelector().resourceId(\"com.hommyn.app:id/btnLeading\")";
 
     // Кнопки
     public static final String FAN_MODE_BUTTON = ELEMENTS_CREATOR.createButtonWithIndex(0);
@@ -33,4 +34,7 @@ public class BalluAsp100MainScreen {
     // Слайдеры
     public static final String SPEED_SLIDER = ELEMENTS_CREATOR.createSliderWithIndex(0);
     public static final String TEMPERATURE_SLIDER = ELEMENTS_CREATOR.createSliderWithIndex(1);
+
+    // Другое
+    public static final String TURBO_TIMER = "new UiSelector().resourceId(\"com.hommyn.app:id/ltContent\").instance(2)";
 }
