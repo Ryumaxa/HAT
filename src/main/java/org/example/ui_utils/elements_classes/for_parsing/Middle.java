@@ -1,0 +1,29 @@
+package org.example.ui_utils.elements_classes.for_parsing;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.HashMap;
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Middle {
+    private String type;
+    private HashMap<String, Double> limit; // Мб int
+    private Action action;
+    private String feature;
+    private int position;
+
+    @Override
+    public String toString() {
+        return "Middle{" +
+                "type='" + type + '\'' +
+                ", limit=" + limit +
+                ", action=" + action +
+                ", feature='" + feature + '\'' +
+                ", position=" + position +
+                '}';
+    }
+}

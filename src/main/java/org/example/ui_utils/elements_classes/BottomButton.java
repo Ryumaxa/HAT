@@ -1,6 +1,6 @@
 package org.example.ui_utils.elements_classes;
 
-public class ModeButton {
+public class BottomButton {
     private int index;
-    private int value;
+    private String name;
 }
