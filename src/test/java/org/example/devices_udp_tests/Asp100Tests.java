@@ -10,6 +10,7 @@ import org.junit.jupiter.api.*;
 public class Asp100Tests {
 
     // TODO: предусмотреть переключение с UDP на MQTT в рамках одного теста
+    // TODO: предусмотреть все доступные языки (RU-EN)
     static CloseableAndroidDriver driver;
 
     @BeforeAll
