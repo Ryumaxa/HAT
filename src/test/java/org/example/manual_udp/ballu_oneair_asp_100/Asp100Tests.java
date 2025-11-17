@@ -1,6 +1,5 @@
-package org.example.devices_udp_tests;
+package org.example.manual_udp.ballu_oneair_asp_100;
 
-import io.appium.java_client.AppiumBy;
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
 import org.example.screen_elements.ballu_asp100.BalluAsp100MainScreen;
@@ -11,6 +10,8 @@ public class Asp100Tests {
 
     // TODO: предусмотреть переключение с UDP на MQTT в рамках одного теста
     // TODO: предусмотреть все доступные языки (RU-EN)
+    // TODO: вынести все элементы в класс константами
+    // TODO: в списке настроек проверить порядок расположения настроект (getLocation и bound не работаеют кореектно из-за скроллинга)
     static CloseableAndroidDriver driver;
 
     @BeforeAll
@@ -19,7 +20,7 @@ public class Asp100Tests {
             driver = DriverBuilder.getAndroidDriver();
             // Проверка, что карточка открылась
             boolean isCardOpened = LogChecker.checkLogsInBackground(
-                    () -> driver.select(BalluAsp100MainScreen.DEVICE_CARD).click(), "DeviceConnectionViewModel", "deviceType=69"
+                    () -> driver.select(BalluAsp100MainScreen.DEVICE_CARD).click(), "DeviceConnectionViewModel", "deviceType=" + BalluAsp100MainScreen.DEVICE_TYPE
             );
             Assertions.assertTrue(isCardOpened);
             // Проверка, что устройство отключено (в противном случае отключение с повторной проверкой)
@@ -144,7 +145,7 @@ public class Asp100Tests {
 
     @Test
     void whenRainSoundButtonClicked_shouldPrintLogsAboutAmountValueIs1() {
-        driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
+        driver.select(BalluAsp100MainScreen.MELODIES_BUTTON).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
                 () -> driver.select(BalluAsp100MainScreen.RAIN_SOUND_BUTTON).click(), "DeviceUtils", "value=1"
         );
@@ -153,7 +154,7 @@ public class Asp100Tests {
 
     @Test
     void whenSeaSoundButtonClicked_shouldPrintLogsAboutAmountValueIs2() {
-        driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
+        driver.select(BalluAsp100MainScreen.MELODIES_BUTTON).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
                 () -> driver.select(BalluAsp100MainScreen.SEA_SOUND_BUTTON).click(), "DeviceUtils", "value=2"
         );
@@ -162,7 +163,7 @@ public class Asp100Tests {
 
     @Test
     void whenForestSoundButtonClicked_shouldPrintLogsAboutAmountValueIs3() {
-        driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
+        driver.select(BalluAsp100MainScreen.MELODIES_BUTTON).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
                 () -> driver.select(BalluAsp100MainScreen.FOREST_SOUND_BUTTON).click(), "DeviceUtils", "value=3"
         );
@@ -171,7 +172,7 @@ public class Asp100Tests {
 
     @Test
     void whenBirdsSoundButtonClicked_shouldPrintLogsAboutAmountValueIs4() {
-        driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
+        driver.select(BalluAsp100MainScreen.MELODIES_BUTTON).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
                 () -> driver.select(BalluAsp100MainScreen.BIRDS_SOUND_BUTTON).click(), "DeviceUtils", "value=4"
         );
@@ -180,7 +181,7 @@ public class Asp100Tests {
 
     @Test
     void whenFireSoundButtonClicked_shouldPrintLogsAboutAmountValueIs5() {
-        driver.findElement(AppiumBy.androidUIAutomator(BalluAsp100MainScreen.MELODIES_BUTTON)).click();
+        driver.select(BalluAsp100MainScreen.MELODIES_BUTTON).click();
         boolean logsFound = LogChecker.checkLogsInBackground(
                 () -> driver.select(BalluAsp100MainScreen.FIRE_SOUND_BUTTON).click(), "DeviceUtils", "value=5"
         );
@@ -234,4 +235,5 @@ public class Asp100Tests {
         );
         Assertions.assertTrue(logsFound);
     }
+
 }

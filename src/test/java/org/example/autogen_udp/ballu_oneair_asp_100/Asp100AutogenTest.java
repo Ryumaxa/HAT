@@ -1,4 +1,4 @@
-package org.example.autogen_udp;
+package org.example.autogen_udp.ballu_oneair_asp_100;
 
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
@@ -33,7 +33,7 @@ public class Asp100AutogenTest {
 
             // Проверка, что карточка открылась
             boolean isCardOpened = LogChecker.checkLogsInBackground(
-                    () -> driver.select(BalluAsp100MainScreen.DEVICE_CARD).click(), "DeviceConnectionViewModel", "deviceType=69"
+                    () -> driver.select(BalluAsp100MainScreen.DEVICE_CARD).click(), "DeviceConnectionViewModel", "deviceType=" + BalluAsp100MainScreen.DEVICE_TYPE
             );
             Assertions.assertTrue(isCardOpened);
         } catch (Exception e) {
@@ -47,7 +47,6 @@ public class Asp100AutogenTest {
         driver.quit();
     }
 
-
     @Test
     void modeButtonsComplexTest() {
         boolean logsFound = false;
@@ -59,5 +58,4 @@ public class Asp100AutogenTest {
         Assertions.assertTrue(logsFound);
         // TODO: не проходит потому что из JSON для кнопки Вкл/Откл берется только одно из значений
     }
-
 }

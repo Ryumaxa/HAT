@@ -8,11 +8,15 @@ public class ElementsCreator {
         return "new UiSelector().resourceId(\"com.hommyn.app:id/ltFeature\").instance(" + index + ")";
     }
 
+    public String createSettingElementWithIndex (int index) {
+        return "new UiSelector().resourceId(\"com.hommyn.app:id/ltRoot\").instance(" + index + ")";
+    }
+
     public String createButtonWithText (String text) {
         return "new UiSelector().text(\"" + text + "\")";
     }
 
-    public String createDeviceCardWithText (String text) {
+    public String scrollToElementWithText(String text) {
         return "new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + text + "\"));";
     }
 

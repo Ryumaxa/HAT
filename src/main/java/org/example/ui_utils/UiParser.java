@@ -23,18 +23,7 @@ public class UiParser {
     }
 
     public void parse() throws IOException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        File file = new File(path);
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        Root root = objectMapper.readValue(file, Root.class);
-//
-//        for (int i = 0; i < root.getLayout().getBottom().length; i++) {
-//            String type = findType(root, i);
-//            String name = findName(root, i);
-//            int mode = findMode(root, i);
-//            System.out.println("[" + i + "] " + type + " : " + name + " : " + mode);
-//        }
-        // TODO: общий метод для возврата всех элементов
+        // TODO: сделать из него общий метод для возврата всех элементов
     }
 
     public ArrayList<BottomButton> parseBottomButtons() throws IOException {
