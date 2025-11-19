@@ -11,6 +11,7 @@ import org.example.ui_utils.ElementsCreator;
 import org.example.ui_utils.UiParser;
 import org.example.ui_utils.elements_classes.BottomButton;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,23 +29,11 @@ public class Sandbox {
     public static void main(String[] args) throws Exception {
         CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver();
 
-        // Ниже примеры тестов полей для ввода текста
-//        driver.select(BalluAsp100MainScreen.SETTING_DEVICE_ROOM).click();
-//        Thread.sleep(50);
-//        String prevRoom = driver.select(BalluAsp100MainScreen.SETTING_INPUT_FIELD).getText();
-//        driver.select(BalluAsp100MainScreen.SETTING_INPUT_FIELD).sendKeys("test_room");
-//        driver.select(BalluAsp100MainScreen.SETTING_INPUT_SAVE).click();
-//
-//        driver.select(BalluAsp100MainScreen.SETTING_DEVICE_ROOM).click();
-//        Thread.sleep(50);
-//        driver.select(BalluAsp100MainScreen.SETTING_INPUT_FIELD).sendKeys("not_test_room");
-//        driver.select(BalluAsp100MainScreen.SETTING_INPUT_CANCEL).click();
-//
-//        driver.select(BalluAsp100MainScreen.SETTING_DEVICE_ROOM).click();
-//        Thread.sleep(50);
-//        driver.select(BalluAsp100MainScreen.SETTING_INPUT_FIELD).sendKeys(prevRoom);
-//        driver.select(BalluAsp100MainScreen.SETTING_INPUT_SAVE).click();
-
-        System.out.println(driver.select("new UiSelector().text(\"" + "Продолжить" + "\")").isDisplayed());
+        driver.select(BalluAsp100MainScreen.SETTING_FILTER_RESOURCE).click();
+        driver.select("new UiSelector().resourceId(\"android:id/button1\")").click();
+        boolean isReset = LogChecker.checkLogsInBackground(
+                () -> driver.select("new UiSelector().resourceId(\"android:id/button1\")").click(), "UdpConnection"//, "CmdExpendables", "value=[0]"
+        );
+        System.out.println(isReset);
     }
 }

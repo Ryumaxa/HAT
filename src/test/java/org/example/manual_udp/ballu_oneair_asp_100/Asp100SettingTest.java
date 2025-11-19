@@ -1,5 +1,6 @@
 package org.example.manual_udp.ballu_oneair_asp_100;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
 import org.example.screen_elements.ballu_asp100.BalluAsp100MainScreen;
@@ -121,16 +122,70 @@ public class Asp100SettingTest {
 
     @Test
     void whenDeviceParametersButtonClicked_shouldOpenDeviceParametersScreen() throws InterruptedException {
-        driver.select(BalluAsp100MainScreen.SETTING_DEVICE_GROUP).click();
+        driver.select(BalluAsp100MainScreen.SETTING_DEVICE_PARAMETERS).click();
         Thread.sleep(100);
         Assertions.assertTrue(driver.select("new UiSelector().text(\"Модель\")").isDisplayed());
-        // TODO: сюда же добавить проверку наличия карточек
+        Assertions.assertTrue(driver.select("new UiSelector().className(\"android.view.View\").instance(4)").isDisplayed());
         Assertions.assertTrue(driver.select("new UiSelector().text(\"Продолжить\")").isDisplayed());
         driver.navigate().back();
     }
 
-    // TODO: дописать тесты под звук и все, что ниже него
+    @Test
+    void whenSoundCheckboxClicked_shouldPrintLogsAboutEnabledOrDisabledSound() {
+        boolean isTurnOff = LogChecker.checkLogsInBackground(
+                () -> driver.select(BalluAsp100MainScreen.SETTING_SOUND).click(), "DeviceUtils", "CmdVolume", "enabled=0"
+        );
+        if (isTurnOff) {
+            boolean isTurnOn = LogChecker.checkLogsInBackground(
+                    () -> driver.select(BalluAsp100MainScreen.SETTING_SOUND).click(), "DeviceUtils", "CmdVolume", "enabled=1"
+            );
+            Assertions.assertTrue(isTurnOn);
+        } else {
+            isTurnOff = LogChecker.checkLogsInBackground(
+                    () -> driver.select(BalluAsp100MainScreen.SETTING_SOUND).click(), "DeviceUtils", "CmdVolume", "enabled=0"
+            );
+            Assertions.assertTrue(isTurnOff);
+        }
+    }
 
+    @Test
+    void filterResourceCancelButtonTest() {
+        driver.select(BalluAsp100MainScreen.SETTING_FILTER_RESOURCE).click();
+        Assertions.assertEquals("Сбросить счетчик расходных материалов?", driver.select("new UiSelector().resourceId(\"com.hommyn.app:id/alertTitle\")").getText());
+        Assertions.assertEquals("ОТМЕНА", driver.select("new UiSelector().resourceId(\"android:id/button2\")").getText());
+        driver.select("new UiSelector().resourceId(\"android:id/button2\")").click();
+        Assertions.assertThrows(NoSuchElementException.class, () -> driver.select("new UiSelector().resourceId(\"com.hommyn.app:id/alertTitle\")"));
+    }
 
+    @Test
+    void filterResourceResetButtonTest() {
+        driver.select(BalluAsp100MainScreen.SETTING_FILTER_RESOURCE).click();
+        Assertions.assertEquals("СБРОСИТЬ", driver.select("new UiSelector().resourceId(\"android:id/button1\")").getText());
+        driver.select("new UiSelector().resourceId(\"android:id/button1\")").click();
+        boolean isReset = LogChecker.checkLogsInBackground(
+                () -> driver.select("new UiSelector().resourceId(\"android:id/button1\")").click(), "UdpConnection", "CmdExpendables", "value=[0]"
+        );
+        Assertions.assertTrue(isReset);
+        Assertions.assertThrows(NoSuchElementException.class, () -> driver.select("new UiSelector().resourceId(\"com.hommyn.app:id/alertTitle\")"));
+    }
+
+    @Test
+    // TODO: вынести проверку чекбоксов в отдельный метод
+    void whenLedCheckboxClicked_shouldPrintLogsAboutEnabledOrDisabledLed() {
+        boolean isTurnOff = LogChecker.checkLogsInBackground(
+                () -> driver.select(BalluAsp100MainScreen.SETTING_LED_OFF).click(), "DeviceUtils", "CmdBacklight", "enabled=0"
+        );
+        if (isTurnOff) {
+            boolean isTurnOn = LogChecker.checkLogsInBackground(
+                    () -> driver.select(BalluAsp100MainScreen.SETTING_LED_OFF).click(), "DeviceUtils", "CmdBacklight", "enabled=1"
+            );
+            Assertions.assertTrue(isTurnOn);
+        } else {
+            isTurnOff = LogChecker.checkLogsInBackground(
+                    () -> driver.select(BalluAsp100MainScreen.SETTING_LED_OFF).click(), "DeviceUtils", "CmdBacklight", "enabled=0"
+            );
+            Assertions.assertTrue(isTurnOff);
+        }
+    }
 
 }

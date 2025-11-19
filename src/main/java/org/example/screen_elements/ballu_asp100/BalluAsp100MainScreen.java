@@ -45,7 +45,7 @@ public class BalluAsp100MainScreen {
     public static final String SETTING_DEVICE_PLACE = ELEMENTS_CREATOR.createSettingElementWithIndex(1);
     public static final String SETTING_DEVICE_ROOM = ELEMENTS_CREATOR.createSettingElementWithIndex(2);
     public static final String SETTING_DEVICE_GROUP = ELEMENTS_CREATOR.createSettingElementWithIndex(3);
-    public static final String SETTING_PARAMETERS = ELEMENTS_CREATOR.createSettingElementWithIndex(4);
+    public static final String SETTING_DEVICE_PARAMETERS = ELEMENTS_CREATOR.createSettingElementWithIndex(4);
     public static final String SETTING_SOUND = ELEMENTS_CREATOR.createButtonWithText("Звук");
     public static final String SETTING_FILTER_RESOURCE = ELEMENTS_CREATOR.createButtonWithText("Ресурс фильтра");
     public static final String SETTING_LED_OFF = ELEMENTS_CREATOR.createButtonWithText("Автоотключение LED индикации");

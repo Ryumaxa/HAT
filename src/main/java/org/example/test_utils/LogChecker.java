@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 public class LogChecker {
 
     public static boolean checkLogsInBackground(Runnable testAction, String... filters) {
-        return checkLogsInBackground(testAction, 10, 10000, filters);
+        return checkLogsInBackground(testAction, 10, 5000, filters);
     }
 
     public static boolean checkLogsInBackground(Runnable testAction, int bufferSize, int timeoutMs, String... filters) {
