@@ -2,16 +2,14 @@ package org.example.log_utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Инструмент для чтения логов через ADB и поиска логов по фильтру
  */
 // TODO: предусмотреть логику фильтрации по ИЛИ
-// TODO: сделать, чтобы логи в несколько строк записывались в одну (иначе проблемка)
 public class LogReader {
-    private final int logcatDelay; // Задержка на формирование лога после воздействия, мс
+    private final int logcatDelay;
     private final LogBuffer<String> buffer;
     private int scopeCounter;
 
@@ -68,17 +66,5 @@ public class LogReader {
             }
         }
         return true;
-    }
-
-    private void accumulateFilteredBuffer(String line, List<String> filters) {
-
-
-        if (line.contains("{")) scopeCounter++;
-        if (line.contains("}")) scopeCounter--;
-
-
-        if (containsAllSubstrings(line, filters)) {
-            buffer.add(line);
-        }
     }
 }

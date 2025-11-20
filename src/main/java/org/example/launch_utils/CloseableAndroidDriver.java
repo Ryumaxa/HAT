@@ -2,7 +2,6 @@ package org.example.launch_utils;
 
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.example.screen_elements.ballu_asp100.BalluAsp100MainScreen;
 import org.example.screen_elements.device_list.DeviceListScreen;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
@@ -88,7 +87,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
     }
 
     public void backToDeviceList() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             try {
                 this.select(DeviceListScreen.VIEW_CHANGE_BUTTON);
             } catch (Exception e) {

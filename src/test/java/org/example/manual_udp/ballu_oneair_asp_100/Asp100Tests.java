@@ -18,12 +18,10 @@ public class Asp100Tests {
     static void setup() {
         try {
             driver = DriverBuilder.getAndroidDriver();
-            // Проверка, что карточка открылась
             boolean isCardOpened = LogChecker.checkLogsInBackground(
                     () -> driver.select(BalluAsp100MainScreen.DEVICE_CARD).click(), "DeviceConnectionViewModel", "deviceType=" + BalluAsp100MainScreen.DEVICE_TYPE
             );
             Assertions.assertTrue(isCardOpened);
-            // Проверка, что устройство отключено (в противном случае отключение с повторной проверкой)
             boolean isDeviceOff = LogChecker.checkLogsInBackground(
                     () -> driver.select(BalluAsp100MainScreen.POWER_ON_OFF_BUTTON).click(), "DeviceUtils", "mode=00"
             );
