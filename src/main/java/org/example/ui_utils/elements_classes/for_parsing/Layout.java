@@ -11,14 +11,15 @@ import java.util.Arrays;
 @NoArgsConstructor
 public class Layout {
     private Top[] top;
-    private Middle[] mid;
+    private Middle[] middle;
     private Bottom[] bottom;
+    private Music[] music;
 
     @Override
     public String toString() {
         return "Layout{" +
                 "top=" + Arrays.toString(top) +
-                ", mid=" + Arrays.toString(mid) +
+                ", mid=" + Arrays.toString(middle) +
                 ", bottom=" + Arrays.toString(bottom) +
                 '}';
     }

@@ -11,7 +11,7 @@ import java.util.HashMap;
 @NoArgsConstructor
 public class Middle {
     private String type;
-    private HashMap<String, Double> limit; // Мб int
+    private Limit limit; // Мб int
     private Action action;
     private String feature;
     private int position;

@@ -3,7 +3,7 @@ package org.example.manual_udp.ballu_oneair_asp_100;
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
 import org.example.screen_elements.ballu_asp100.BalluAsp100MainScreen;
-import org.example.test_utils.LogChecker;
+import org.example.log_utils.LogChecker;
 import org.junit.jupiter.api.*;
 
 public class Asp100Tests {

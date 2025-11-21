@@ -3,31 +3,32 @@ package org.example.autogen_udp.ballu_oneair_asp_100;
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
 import org.example.screen_elements.ballu_asp100.BalluAsp100MainScreen;
-import org.example.test_utils.LogChecker;
+import org.example.log_utils.LogChecker;
 import org.example.ui_utils.ElementsCreator;
 import org.example.ui_utils.UiParser;
-import org.example.ui_utils.elements_classes.BottomButton;
+import org.example.ui_utils.elements_classes.layout.BottomElement;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Asp100AutogenTest {
     static CloseableAndroidDriver driver;
     static UiParser parser;
-    static ArrayList<BottomButton> bottomButtons;
-    static List<BottomButton> modeButtons;
+    static ArrayList<BottomElement> bottomElements;
+    static List<BottomElement> modeButtons;
     static ElementsCreator elementsCreator;
 
     @BeforeAll
-    static void setup() {
+    static void setup() throws IOException {
         parser = new UiParser("src/main/resources/jsons/ASP 100.json");
         try {
             elementsCreator = new ElementsCreator();
-            bottomButtons = parser.parseBottomButtons();
+            bottomElements = parser.parseBottomButtons();
             modeButtons = parser.getModeButtons();
             driver = DriverBuilder.getAndroidDriver();
 
@@ -50,7 +51,7 @@ public class Asp100AutogenTest {
     @Test
     void modeButtonsComplexTest() {
         boolean logsFound = false;
-        for (BottomButton modeButton : modeButtons) {
+        for (BottomElement modeButton : modeButtons) {
             logsFound = LogChecker.checkLogsInBackground(
                     () -> driver.select(elementsCreator.createButtonWithIndex(modeButton.getIndex())).click(), "DeviceUtils", "mode=0" + modeButton.getMode()
             );

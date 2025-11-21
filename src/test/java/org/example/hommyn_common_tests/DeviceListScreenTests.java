@@ -2,7 +2,7 @@ package org.example.hommyn_common_tests;
 
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
-import org.example.test_utils.LogChecker;
+import org.example.log_utils.LogChecker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

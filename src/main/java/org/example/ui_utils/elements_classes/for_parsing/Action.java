@@ -15,6 +15,7 @@ public class Action {
     private int position;
     @JsonProperty("program_data")
     private ProgramData programData;
+    private int amount;
 
     @Override
     public String toString() {

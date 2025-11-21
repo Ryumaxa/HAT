@@ -1,6 +1,4 @@
-package org.example.test_utils;
-
-import org.example.log_utils.LogReader;
+package org.example.log_utils;
 
 import java.util.concurrent.*;
 

@@ -1,11 +1,11 @@
-package org.example.ui_utils.elements_classes;
+package org.example.ui_utils.elements_classes.layout;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class BottomButton {
+public class BottomElement {
     private int index;
     private String type;
     private String name;
