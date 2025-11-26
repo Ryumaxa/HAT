@@ -1,0 +1,20 @@
+{
+  "devices": [
+    {
+      "type": 69,
+      "name": "ASP-100 TEST"
+    },
+    {
+      "type": 1,
+      "name": "111"
+    },
+    {
+      "type": 2,
+      "name": "222"
+    },
+    {
+      "type": 3,
+      "name": "333"
+    }
+  ]
+}

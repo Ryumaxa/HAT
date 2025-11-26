@@ -13,6 +13,6 @@ public class MusicElement {
 
     @Override
     public String toString() {
-        return "[" + index + "] : " + type + " : " + name;
+        return "[" + index + "] : " + type + " : " + name + " : " + value;
     }
 }

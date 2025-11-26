@@ -28,7 +28,7 @@ public class Asp100AutogenTest {
         parser = new UiParser("src/main/resources/jsons/ASP 100.json");
         try {
             elementsCreator = new ElementsCreator();
-            bottomElements = parser.parseBottomButtons();
+            bottomElements = parser.parseBottomElements();
             modeButtons = parser.getModeButtons();
             driver = DriverBuilder.getAndroidDriver();
 

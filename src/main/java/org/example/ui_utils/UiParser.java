@@ -2,20 +2,26 @@ package org.example.ui_utils;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NoArgsConstructor;
+import org.example.ui_utils.elements_classes.DeviceUi;
 import org.example.ui_utils.elements_classes.for_parsing.*;
+import org.example.ui_utils.elements_classes.for_parsing.device_list.DeviceData;
+import org.example.ui_utils.elements_classes.for_parsing.device_list.DeviceListRoot;
 import org.example.ui_utils.elements_classes.layout.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 // TODO: ------------------------------------------------
 // TODO: класс - костыльная помойка, надо навести порядок
-// TODO: починить индексацию при использовании stream() СРОЧНО
+// TODO: починить индексацию при использовании stream() СРОЧНО (а мб и не надо наоборот)
 // TODO: ------------------------------------------------
+@NoArgsConstructor
 public class UiParser {
-    private final String path;
+	private RootElement rootElement;
     private ArrayList<BottomElement> bottomElements;
     private ArrayList<TopElement> topElements;
     private ArrayList<MiddleElement> middleElements;
@@ -23,28 +29,34 @@ public class UiParser {
     private Root root;
 
     public UiParser(String path) throws IOException {
-        this.path = path;
         bottomElements = new ArrayList<>();
         topElements = new ArrayList<>();
         middleElements = new ArrayList<>();
         musicElements = new ArrayList<>();
+		rootElement = new RootElement();
 
-        this.init();
+        init(path);
     }
 
-    private void init() throws IOException {
+    private void init(String path) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(path);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         root = objectMapper.readValue(file, Root.class);
     }
 
-    public void parse() throws IOException {
-        // TODO: сделать из него общий метод для возврата всех элементов
+    public DeviceUi getDeviceUi() throws IOException {
+		parseRootElement();
+		parseTopElements();
+		parseMiddleElements();
+		parseBottomElements();
+		parseMusicElements();
+	    return new DeviceUi(rootElement, topElements, middleElements, bottomElements, musicElements);
     }
 
     public RootElement parseRootElement() throws IOException {
-        return new RootElement(root.getName(), root.getType(), root.getClazz());
+	    rootElement = new RootElement(root.getName(), root.getType(), root.getClazz());
+        return rootElement;
     }
 
     public ArrayList<TopElement> parseTopElements() {
@@ -69,7 +81,7 @@ public class UiParser {
         return middleElements;
     }
 
-    public ArrayList<BottomElement> parseBottomButtons() {
+    public ArrayList<BottomElement> parseBottomElements() {
         for (int i = 0; i < root.getLayout().getBottom().length; i++) {
             String type = findType(root.getLayout().getBottom(), i);
             String name = findName(root.getLayout().getBottom(), i).replace(" ", "_");
@@ -85,7 +97,7 @@ public class UiParser {
             String name = findName(root.getLayout().getMusic(), i).replace(" ", "_");
             int value = findValue(root.getLayout().getMusic(), i);
 
-            if (!name.equals("noname") && musicElements.stream().noneMatch(x -> x.getName().equals(name))) {
+            if (musicElements.stream().noneMatch(x -> x.getName().equals(name))) {
                 musicElements.add(new MusicElement(i, type, name, value));
             }
         }
@@ -166,8 +178,47 @@ public class UiParser {
 
     public List<BottomElement> getModeButtons() throws IOException {
         if (bottomElements.isEmpty()) {
-            bottomElements = this.parseBottomButtons();
+            bottomElements = this.parseBottomElements();
         }
         return bottomElements.stream().filter(a -> a.getMode() != -1).toList();
     }
+
+    public List<MusicElement> getMusicButtons() throws IOException {
+        if (musicElements.isEmpty()) {
+            musicElements = this.parseMusicElements();
+        }
+        return musicElements.stream().filter(a -> a.getType().equals("BUTTON")).toList();
+    }
+
+    public HashMap<Integer, String> getDeviceList(String path) throws IOException {
+        HashMap<Integer, String> deviceMap = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(path);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        DeviceListRoot deviceListRoot = objectMapper.readValue(file, DeviceListRoot.class);
+        DeviceData[] devices = deviceListRoot.getDevicesData();
+        for (DeviceData device : devices) {
+            deviceMap.put(device.getType(), device.getName());
+        }
+        return deviceMap;
+    }
+
+	public HashMap<Integer, File> getTypePathMap(String path) throws IOException {
+		HashMap<Integer, File> typePathMap = new HashMap<>();
+		File directory = new File(path);
+		File[] files = directory.listFiles();
+
+		if (files != null) {
+			for (File file : files) {
+				if (file.isFile()) {
+					ObjectMapper objectMapper = new ObjectMapper();
+					objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+					root = objectMapper.readValue(file, Root.class);
+					typePathMap.put(root.getType(), file);
+				}
+			}
+		}
+		return typePathMap;
+	}
+
 }
