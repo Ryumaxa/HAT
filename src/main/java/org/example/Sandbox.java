@@ -12,7 +12,7 @@ public class Sandbox {
     public static void main(String[] args) throws Exception {
 //        CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver();
 
-        UiParser parser = new UiParser("src/main/resources/jsons/ASP 100.json");
+//        UiParser parser = new UiParser("src/main/resources/jsons/ASP 100.json");
 //        RootElement rootElement = parser.parseRootElement();
 //        ArrayList<BottomElement> bottomElements = parser.parseBottomElements();
 //        ArrayList<TopElement> topElements = parser.parseTopElements();
@@ -42,10 +42,10 @@ public class Sandbox {
 //            System.out.println(element);
 //        }
 
-        HashMap<Integer, String> devices = parser.getDeviceList("src/main/resources/devices.json");
-        Set<Integer> types = devices.keySet();
-        for(int t : types) {
-            System.out.println(t + " : " + devices.get(t));
-        }
+//        HashMap<Integer, String> devices = parser.getDeviceList("src/main/resources/devices.json");
+//        Set<Integer> types = devices.keySet();
+//        for(int t : types) {
+//            System.out.println(t + " : " + devices.get(t));
+//        }
     }
 }

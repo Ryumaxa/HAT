@@ -35,10 +35,8 @@ public class TestRunner {
 			
 			// Создаем отдельный парсер для JSON с макетом экрана
 			if (file != null) {
-				UiParser unitParser = new UiParser(file.getPath());
-				
 				// Создаем объект с моделью экрана управления устройством
-				DeviceUi deviceUi = unitParser.getDeviceUi();
+				DeviceUi deviceUi = parser.parseFromFile(file.getPath());
 				
 				deviceUi.setType(type);
 				deviceUi.setDeviceName(name);
