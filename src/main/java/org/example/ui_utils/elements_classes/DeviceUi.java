@@ -2,7 +2,7 @@ package org.example.ui_utils.elements_classes;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.ui_utils.elements_classes.layout.*;
+import org.example.ui_utils.elements_classes.layout_elements.*;
 
 import java.util.ArrayList;
 

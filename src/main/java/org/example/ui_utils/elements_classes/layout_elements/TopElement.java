@@ -1,18 +1,17 @@
-package org.example.ui_utils.elements_classes.layout;
+package org.example.ui_utils.elements_classes.layout_elements;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class BottomElement {
+public class TopElement {
     private int index;
     private String type;
     private String name;
-    private int mode;
 
     @Override
     public String toString() {
-        return "[" + index + "] : " + type + " : " + name + " : " + mode;
+        return "[" + index + "] : " + type + " : " + name;
     }
 }

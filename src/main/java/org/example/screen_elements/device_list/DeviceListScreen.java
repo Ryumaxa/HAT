@@ -7,6 +7,4 @@ import java.util.HashMap;
  */
 public class DeviceListScreen {
     public static final String VIEW_CHANGE_BUTTON = "new UiSelector().resourceId(\"com.hommyn.app:id/btnToggleLayout\")";
-
-    public static HashMap<Integer, String> deviceNames = new HashMap<Integer, String>();
 }

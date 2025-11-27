@@ -1,4 +1,4 @@
-package org.example.ui_utils.elements_classes.for_parsing;
+package org.example.ui_utils.elements_classes.for_parsing.ui_json;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,19 +9,17 @@ import java.util.HashMap;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bottom {
+public class Music {
     private String type;
     private HashMap<String, String> title;
     private Action action;
-    private String feature;
 
     @Override
     public String toString() {
-        return "Bottom{" +
+        return "Music{" +
                 "type='" + type + '\'' +
                 ", title=" + title +
-                ", action=" + action +
-                ", feature=" + feature +
+                ", amount=" + action +
                 '}';
     }
 }

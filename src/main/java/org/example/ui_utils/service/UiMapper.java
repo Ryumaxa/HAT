@@ -1,34 +1,19 @@
-package org.example.ui_utils;
+package org.example.ui_utils.service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.ui_utils.elements_classes.DeviceUi;
-import org.example.ui_utils.elements_classes.for_parsing.*;
-import org.example.ui_utils.elements_classes.for_parsing.device_list.DeviceData;
-import org.example.ui_utils.elements_classes.for_parsing.device_list.DeviceListRoot;
-import org.example.ui_utils.elements_classes.layout.*;
+import org.example.ui_utils.elements_classes.for_parsing.ui_json.*;
+import org.example.ui_utils.elements_classes.layout_elements.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
-// TODO: --------------------------------------------------------------------------------
-// TODO: класс - костыльная помойка, надо навести порядок
-// TODO: починить индексацию при использовании stream() СРОЧНО (а мб и не надо наоборот)
-// TODO:убрать дублирование методов только когда будут готовы все
-// TODO: --------------------------------------------------------------------------------
-public class UiParser {
-	private final ObjectMapper objectMapper;
-	
-	public UiParser() {
-		this.objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-	}
-	
-	public DeviceUi parseFromFile(String path) throws IOException {
-		Root root = objectMapper.readValue(new File(path), Root.class);
-		return getDeviceUi(root);
-	}
+/**
+ * Класс для маппинга всех элементов UI
+ */
+public class UiMapper {
 	
 	public DeviceUi getDeviceUi(Root root) {
 		return new DeviceUi(parseRootElement(root),
@@ -45,10 +30,11 @@ public class UiParser {
 	public ArrayList<TopElement> parseTopElements(Root root) {
 		Top[] top = root.getLayout().getTop();
 		ArrayList<TopElement> topElements = new ArrayList<>();
+		Set<String> seenNames = new HashSet<>();
 		for (int i = 0; i < top.length; i++) {
 			String type = findType(top, i, Top::getType);
 			String name = findName(top, i).replace("- ", "").replace(" ", "_");
-			if (topElements.stream().noneMatch(x -> x.getName().equals(name))) {
+			if (seenNames.add(name)) {
 				topElements.add(new TopElement(i, type, name));
 			}
 		}
@@ -82,13 +68,13 @@ public class UiParser {
 	public ArrayList<MusicElement> parseMusicElements(Root root) {
 		Music[] music = root.getLayout().getMusic();
 		ArrayList<MusicElement> musicElements = new ArrayList<>();
-		if (root.getLayout().getMusic() != null) {
+		if (music != null) {
+			Set<String> seenNames = new HashSet<>();
 			for (int i = 0; i < music.length; i++) {
 				String type = findType(music, i, Music::getType);
 				String name = findName(music, i).replace(" ", "_");
 				int value = findValue(music, i);
-				
-				if (musicElements.stream().noneMatch(x -> x.getName().equals(name))) {
+				if (seenNames.add(name)) {
 					musicElements.add(new MusicElement(i, type, name, value));
 				}
 			}
@@ -170,36 +156,5 @@ public class UiParser {
 		}
 		return musicElements.stream().filter(a -> a.getType().equals("BUTTON")).toList();
 	}
-	
-	public HashMap<Integer, String> getDeviceList(String path) throws IOException {
-		HashMap<Integer, String> deviceMap = new HashMap<>();
-		ObjectMapper objectMapper = new ObjectMapper();
-		File file = new File(path);
-		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		DeviceListRoot deviceListRoot = objectMapper.readValue(file, DeviceListRoot.class);
-		DeviceData[] devices = deviceListRoot.getDevicesData();
-		for (DeviceData device : devices) {
-			deviceMap.put(device.getType(), device.getName());
-		}
-		return deviceMap;
-	}
-	
-	public HashMap<Integer, File> getTypePathMap(String path) throws IOException {
-		HashMap<Integer, File> typePathMap = new HashMap<>();
-		File directory = new File(path);
-		File[] files = directory.listFiles();
-		
-		if (files != null) {
-			for (File file : files) {
-				if (file.isFile()) {
-					ObjectMapper objectMapper = new ObjectMapper();
-					objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-					Root root = objectMapper.readValue(file, Root.class);
-					typePathMap.put(root.getType(), file);
-				}
-			}
-		}
-		return typePathMap;
-	}
-	
+
 }

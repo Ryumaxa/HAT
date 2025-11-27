@@ -1,4 +1,4 @@
-package org.example.ui_utils.elements_classes.for_parsing;
+package org.example.ui_utils.elements_classes.for_parsing.ui_json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

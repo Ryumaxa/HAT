@@ -1,4 +1,4 @@
-package org.example.ui_utils.elements_classes.for_parsing;
+package org.example.ui_utils.elements_classes.for_parsing.ui_json;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,19 +9,17 @@ import java.util.HashMap;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Middle {
+public class Top {
     private String type;
-    private Limit limit; // Мб int
-    private Action action;
+    private HashMap<String, String> title;
     private String feature;
     private int position;
 
     @Override
     public String toString() {
-        return "Middle{" +
+        return "Top{" +
                 "type='" + type + '\'' +
-                ", limit=" + limit +
-                ", action=" + action +
+                ", title=" + title +
                 ", feature='" + feature + '\'' +
                 ", position=" + position +
                 '}';

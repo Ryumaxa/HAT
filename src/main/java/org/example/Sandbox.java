@@ -1,13 +1,5 @@
 package org.example;
 
-import org.example.ui_utils.UiParser;
-import org.example.ui_utils.elements_classes.layout.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-
 public class Sandbox {
     public static void main(String[] args) throws Exception {
 //        CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver();
@@ -40,12 +32,6 @@ public class Sandbox {
 //        System.out.println("----------MUSIC BUTTONS--------");
 //        for (MusicElement element : musicElements) {
 //            System.out.println(element);
-//        }
-
-//        HashMap<Integer, String> devices = parser.getDeviceList("src/main/resources/devices.json");
-//        Set<Integer> types = devices.keySet();
-//        for(int t : types) {
-//            System.out.println(t + " : " + devices.get(t));
 //        }
     }
 }

@@ -1,4 +1,4 @@
-package org.example.ui_utils.elements_classes.for_parsing;
+package org.example.ui_utils.elements_classes.for_parsing.ui_json;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

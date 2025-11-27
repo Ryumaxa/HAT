@@ -1,10 +1,8 @@
-package org.example.ui_utils.elements_classes.layout;
+package org.example.ui_utils.elements_classes.layout_elements;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.example.ui_utils.elements_classes.for_parsing.Limit;
-
-import java.util.HashMap;
+import org.example.ui_utils.elements_classes.for_parsing.ui_json.Limit;
 
 @AllArgsConstructor
 @Data

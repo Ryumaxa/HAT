@@ -1,4 +1,4 @@
-package org.example.ui_utils.elements_classes.layout;
+package org.example.ui_utils.elements_classes.layout_elements;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
