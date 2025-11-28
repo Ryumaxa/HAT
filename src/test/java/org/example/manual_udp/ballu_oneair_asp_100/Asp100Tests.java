@@ -10,8 +10,6 @@ public class Asp100Tests {
 
     // TODO: предусмотреть переключение с UDP на MQTT в рамках одного теста
     // TODO: предусмотреть все доступные языки (RU-EN)
-    // TODO: вынести все элементы в класс константами
-    // TODO: в списке настроек проверить порядок расположения настроект (getLocation и bound не работаеют кореектно из-за скроллинга)
     static CloseableAndroidDriver driver;
 
     @BeforeAll

@@ -7,7 +7,7 @@ import org.example.ui_utils.ElementsCreator;
  * <p>
  * Тип - 69
  */
-// TODO: вынести общие элементы в другой класс и наследовать все устройства от него
+// TODO: вынести общие элементы в другой класс и наследовать все устройства от него (при ручном подходе)
 public class BalluAsp100MainScreen {
     private static final ElementsCreator ELEMENTS_CREATOR = new ElementsCreator();
 
