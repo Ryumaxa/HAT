@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class SettingElement {
 	private String type;
 	private String feature;
+	
+	// TODO: заполнить))))
 }

@@ -1,7 +1,5 @@
 package org.example.screen_elements.device_list;
 
-import java.util.HashMap;
-
 /**
  * Экран со списком устройств
  */

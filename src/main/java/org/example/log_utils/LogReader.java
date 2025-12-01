@@ -9,6 +9,9 @@ import java.util.List;
  */
 // TODO: предусмотреть логику фильтрации по ИЛИ
 public class LogReader {
+	public final boolean PRINT_OK_LOGS = false;
+	public final boolean PRINT_ALL_LOGS = false;
+	
     private final int logcatDelay;
     private final LogBuffer<String> buffer;
     private int scopeCounter;
@@ -32,7 +35,7 @@ public class LogReader {
             StringBuilder stringBuilder = new StringBuilder();
 
             while ((line = reader.readLine()) != null && (System.currentTimeMillis() - startSearchingTime <= logcatDelay) && buffer.isEmpty()) {
-//                System.out.println(line);
+				if(PRINT_ALL_LOGS) System.out.println(line);
                 if (line.contains("{")) scopeCounter++;
                 if (line.contains("}")) scopeCounter--;
 
@@ -42,14 +45,14 @@ public class LogReader {
                 if (scopeCounter <= 0) {
                     if (containsAllSubstrings(stringBuilder.toString(), filters)) {
                         buffer.add(stringBuilder.toString());
-                        System.out.println(stringBuilder);
+	                    if(PRINT_OK_LOGS) System.out.println(stringBuilder);
                     }
                     stringBuilder.setLength(0);
                 }
 
             }
         } catch (Exception e) {
-            System.out.println("Поймалось исключение: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
