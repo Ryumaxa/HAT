@@ -3,6 +3,7 @@ package org.example.test_running;
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.launch_utils.DriverBuilder;
 import org.example.test_running.elements_test_classes.ModeButtonTest;
+import org.example.test_running.elements_test_classes.TestHelper;
 import org.example.ui_utils.ElementsCreator;
 import org.example.ui_utils.elements_classes.DeviceUi;
 import org.example.ui_utils.elements_classes.layout_elements.BottomElement;
@@ -21,12 +22,15 @@ public class TestRunner {
 		ArrayList<DeviceUi> deviceUis = uiService.getDevicesUi("src/main/resources/devices.json", "src/main/resources/ui_jsons");
 		
 		CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver();
+		
 		ElementsCreator elementsCreator = new ElementsCreator();
 		ModeButtonTest modeButtonTest = new ModeButtonTest(driver, elementsCreator);
+		TestHelper testHelper = new TestHelper(driver, elementsCreator);
 		
 		for (int i = 0; i < 1; i++) {
 			
 			for (DeviceUi deviceUi : deviceUis) {
+				testHelper.OpenDeviceCard(deviceUi.getDeviceName(), deviceUi.getType());
 				for (BottomElement element : deviceUi.getBottomElements()) {
 					modeButtonTest.run(element);
 				}

@@ -52,7 +52,7 @@ public class LogReader {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Ошибка при поиске логов");
         }
     }
 
