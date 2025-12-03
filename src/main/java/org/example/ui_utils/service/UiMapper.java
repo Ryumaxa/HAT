@@ -120,12 +120,14 @@ public class UiMapper {
 	
 	private int findMode(Bottom[] bottom, int i) {
 		Action action = bottom[i].getAction();
-		if (action != null &&
-				    action.getProgram() != null) {
+		if (action != null && action.getProgram() != null) {
 			return action.getProgram()[0];
-		} else if (action != null &&
-				           action.getProgramData() != null) {
-			return action.getProgramData().getProgram()[0];
+		} else if (action != null && action.getProgramData() != null) {
+			if (action.getProgramData().getProgram()[0] == 1) {
+				return 0;
+			} else {
+				return action.getProgramData().getProgram()[0];
+			}
 		} else {
 			return -1;
 		}

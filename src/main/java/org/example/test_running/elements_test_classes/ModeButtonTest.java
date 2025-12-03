@@ -6,6 +6,12 @@ import org.example.ui_utils.ElementsCreator;
 import org.example.ui_utils.elements_classes.layout_elements.BottomElement;
 import org.openqa.selenium.NoSuchElementException;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
+/**
+ * Класс, реализующий тесты кнопок переключения режимов
+ */
 public class ModeButtonTest implements ElementTest<BottomElement> {
 	private final CloseableAndroidDriver driver;
 	private final ElementsCreator elementsCreator;
@@ -31,7 +37,7 @@ public class ModeButtonTest implements ElementTest<BottomElement> {
 				} else {
 					helper.printGreen(element.getType() + "_" + element.getName() + " : отработала корректно");
 				}
-			} catch (NoSuchElementException e) {
+			} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
 				System.err.println(element.getName() + " : элемент не найден!");
 			}
 		}
