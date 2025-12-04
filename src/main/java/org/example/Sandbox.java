@@ -17,28 +17,10 @@ public class Sandbox {
     public static void main(String[] args) throws Exception {
 	    UiService uiService = new UiService();
 	    ArrayList<DeviceUi> deviceUis = uiService.getDevicesUi("src/main/resources/devices.json", "src/main/resources/ui_jsons");
-	    
-	    CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver();
-	    
 	    ElementsCreator elementsCreator = new ElementsCreator();
-	    ModeButtonTest modeButtonTest = new ModeButtonTest(driver, elementsCreator);
-	    SliderTest sliderTest = new SliderTest(driver, elementsCreator);
-	    TestHelper testHelper = new TestHelper(driver, elementsCreator);
+	    CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver();
+		
+		
 	    
-	    for (int i = 0; i < 1; i++) {
-		    
-		    for (DeviceUi deviceUi : deviceUis) {
-			    if (testHelper.openDeviceCard(deviceUi.getDeviceName(), deviceUi.getType())) {
-				    System.out.println("----------ТЕСТИРОВАНИЕ КНОПОК РЕЖИМОВ----------");
-				    for (BottomElement element : deviceUi.getBottomElements()) {
-					    System.out.println(element);
-				    }
-				    System.out.println("----------ТЕСТИРОВАНИЕ СЛАЙДЕРОВ----------");
-				    for (MiddleElement element : deviceUi.getMiddleElements()) {
-					    System.out.println(element);
-				    }
-			    }
-		    }
-	    }
     }
 }

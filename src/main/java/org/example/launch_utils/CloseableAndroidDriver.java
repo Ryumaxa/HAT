@@ -32,7 +32,8 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
         return this.findElement(AppiumBy.id(elementId));
     }
 
-    public void leftSliderMin(String leftSlider) {
+	// Управление слайдерами вентиляции
+    public void ventLeftSliderMin(String leftSlider) {
         WebElement slider = this.select(leftSlider);
         Dimension size = slider.getSize();
         new Actions(this)
@@ -41,7 +42,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
                 .perform();
     }
 
-    public void leftSliderMid(String leftSlider) {
+    public void ventLeftSliderMid(String leftSlider) {
         WebElement slider = this.select(leftSlider);
         Dimension size = slider.getSize();
         new Actions(this)
@@ -50,7 +51,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
                 .perform();
     }
 
-    public void leftSliderMax(String leftSlider) {
+    public void ventLeftSliderMax(String leftSlider) {
         WebElement slider = this.select(leftSlider);
         Dimension size = slider.getSize();
         new Actions(this)
@@ -59,7 +60,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
                 .perform();
     }
 
-    public void rightSliderMin(String rightSlider) {
+    public void ventRightSliderMin(String rightSlider) {
         WebElement slider = this.select(rightSlider);
         Dimension size = slider.getSize();
         new Actions(this)
@@ -68,7 +69,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
                 .perform();
     }
 
-    public void rightSliderMid(String rightSlider) {
+    public void ventRightSliderMid(String rightSlider) {
         WebElement slider = this.select(rightSlider);
         Dimension size = slider.getSize();
         new Actions(this)
@@ -77,7 +78,7 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
                 .perform();
     }
 
-    public void rightSliderMax(String rightSlider) {
+    public void ventRightSliderMax(String rightSlider) {
         WebElement slider = this.select(rightSlider);
         Dimension size = slider.getSize();
         new Actions(this)
@@ -85,6 +86,66 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
                 .click()
                 .perform();
     }
+	
+	// Управление слайдерами конвекторов
+	
+	public void convectorLeftSliderMin(String leftSlider) {
+		WebElement slider = this.select(leftSlider);
+		Dimension size = slider.getSize();
+		new Actions(this)
+				.moveToElement(slider, 10 * size.getWidth() / 28, 2 * size.getHeight() / 9)
+				.click()
+				.perform();
+	}
+	
+	public void convectorLeftSliderMid(String leftSlider) {
+		WebElement slider = this.select(leftSlider);
+		Dimension size = slider.getSize();
+		new Actions(this)
+				.moveToElement(slider, -10 * size.getWidth() / 28, 0)
+				.click()
+				.perform();
+	}
+	
+	public void convectorLeftSliderMax(String leftSlider) {
+		WebElement slider = this.select(leftSlider);
+		Dimension size = slider.getSize();
+		new Actions(this)
+				.moveToElement(slider, 10 * size.getWidth() / 28, -2 * size.getHeight() / 9)
+				.click()
+				.perform();
+	}
+	
+	public void convectorRightSliderMin(String rightSlider) {
+		WebElement slider = this.select(rightSlider);
+		Dimension size = slider.getSize();
+		new Actions(this)
+				.moveToElement(slider, -10 * size.getWidth() / 28, 2 * size.getHeight() / 9)
+				.click()
+				.perform();
+	}
+	
+	public void convectorRightSliderMid(String rightSlider) {
+		WebElement slider = this.select(rightSlider);
+		Dimension size = slider.getSize();
+		new Actions(this)
+				.moveToElement(slider, 10 * size.getWidth() / 28, 0)
+				.click()
+				.perform();
+	}
+	
+	public void convectorRightSliderMax(String rightSlider) {
+		WebElement slider = this.select(rightSlider);
+		Dimension size = slider.getSize();
+		new Actions(this)
+				.moveToElement(slider, -10 * size.getWidth() / 28, -2 * size.getHeight() / 9)
+				.click()
+				.perform();
+	}
+	
+	
+	
+	
 
     public void backToDeviceList() {
         for (int i = 0; i < 5; i++) {

@@ -25,11 +25,6 @@ public class LogChecker {
         try {
             testAction.run();
             return future.get(timeoutMs + 10, TimeUnit.MILLISECONDS);
-//        } catch (TimeoutException e) {
-//            future.cancel(true);
-//            throw new RuntimeException("Проверка логов превысила таймаут", e);
-//        } catch (Exception e) {
-//            throw new RuntimeException("Ошибка при проверке логов", e);
         } finally {
             executor.shutdown();
         }

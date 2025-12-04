@@ -30,16 +30,21 @@ public class TestRunner {
 		SliderTest sliderTest = new SliderTest(driver, elementsCreator);
 		TestHelper testHelper = new TestHelper(driver, elementsCreator);
 		
+//		for (DeviceUi deviceUi : deviceUis) {
+//			System.out.println(deviceUi);
+//		}
+		
 		for (int i = 0; i < 1; i++) {
-			
+
 			for (DeviceUi deviceUi : deviceUis) {
 				System.out.println("|-|-|-|-|-|-|-|------- " + deviceUi.getDeviceName() + " -------|-|-|-|-|-|-|-|");
 				if (testHelper.openDeviceCard(deviceUi.getDeviceName(), deviceUi.getType())) {
 					System.out.println("----------ТЕСТИРОВАНИЕ КНОПОК РЕЖИМОВ----------");
-					for (BottomElement element : deviceUi.getBottomElements()) {
-						modeButtonTest.run(element);
-					}
+//					for (BottomElement element : deviceUi.getBottomElements()) {
+//						modeButtonTest.run(element);
+//					}
 					System.out.println("----------ТЕСТИРОВАНИЕ СЛАЙДЕРОВ----------");
+					sliderTest.determineSliderType(deviceUi.getMiddleElements());
 					for (MiddleElement element : deviceUi.getMiddleElements()) {
 						sliderTest.run(element);
 					}

@@ -6,6 +6,7 @@ import org.example.ui_utils.ElementsCreator;
 import org.example.ui_utils.elements_classes.layout_elements.MiddleElement;
 import org.openqa.selenium.NoSuchElementException;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -17,8 +18,8 @@ public class SliderTest implements ElementTest<MiddleElement> {
 	private final ElementsCreator elementsCreator;
 	private final ElementFilter filter;
 	private final TestHelper helper;
-	private final SliderTypes sliderType;
-	// TODO: в конструкторе инициализировать тип слайдера, передавая на вход лист из всех слайдеров на основе фильтра
+	private SliderTypes sliderType;
+	// TODO: большая проблема со слайдерами конвектора (В JSON они дублируются для всех диапазонов)
 	
 	
 	public SliderTest(CloseableAndroidDriver driver, ElementsCreator elementsCreator) {
@@ -28,46 +29,119 @@ public class SliderTest implements ElementTest<MiddleElement> {
 		helper = new TestHelper(driver, elementsCreator);
 	}
 	
-	@Override
-	public void run(MiddleElement element) {
-		if (filter.isSlider(element)) {
-			try {
-				// TODO: условия
-				if (leftSliderMaxLimitCorrect(element) && leftSliderMinLimitCorrect(element)) {
-					helper.printGreen(element.getType() + "_" + element.getName() + " : отработала корректно");
-				} else {
-					System.err.println(element.getName() + " : ошибка при проверке логов!");
-				}
-			} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
-				System.err.println(element.getName() + " : элемент не найден!");
-			}
+	public void determineSliderType(ArrayList<MiddleElement> middleElements) {
+		middleElements.removeIf(el -> !el.getType().equals("SLIDER"));
+		if (middleElements.size() == 1) {
+			sliderType = SliderTypes.BOILER;
+		} else if (middleElements.getFirst().getName().equals("SPEED")) {
+			sliderType = SliderTypes.VENTILATION;
+		} else {
+			sliderType = SliderTypes.CONVECTOR;
 		}
 	}
 	
-	private boolean isAspTypeSlider(MiddleElement element) {
-		// TODO: проверка, к какому типу относится слайдер
-		return false;
+	@Override
+	public void run(MiddleElement element) {
+		switch (sliderType) {
+			case VENTILATION -> testVentilationSliders(element);
+		}
 	}
 	
-	// Слайдеры типа ASP-100 (ПОМОЙНЫЕ)
-	private boolean leftSliderMaxLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+	private void testVentilationSliders(MiddleElement element) {
+		if (filter.isSlider(element)) {
+			if (element.getName().equals("SPEED")) {
+				try {
+					if (ventSpeedSliderMaxLimitCorrect(element) && ventSpeedSliderMinLimitCorrect(element)) {
+						helper.printGreen(element.getType() + "_" + element.getName() + " : отработал корректно");
+					} else {
+						System.err.println(element.getName() + " : ошибка при проверке логов!");
+					}
+				} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
+					System.err.println(element.getName() + " : элемент не найден!");
+				}
+			} else {
+				try {
+					if (ventTempSliderMaxLimitCorrect(element) && ventTempSliderMinLimitCorrect(element)) {
+						helper.printGreen(element.getType() + "_" + element.getName() + " : отработал корректно");
+					} else {
+						System.err.println(element.getName() + " : ошибка при проверке логов!");
+					}
+				} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
+					System.err.println(element.getName() + " : элемент не найден!");
+				}
+			}
+		}
+		// TODO: сократить позже
+	}
+	
+	private void testConvectorSliders(MiddleElement element) {
+		if (filter.isSlider(element)) {
+			if (element.getName().equals("TEMPERATURE")) {
+				try {
+					if (ventSpeedSliderMaxLimitCorrect(element) && ventSpeedSliderMinLimitCorrect(element)) {
+						helper.printGreen(element.getType() + "_" + element.getName() + " : отработал корректно");
+					} else {
+						System.err.println(element.getName() + " : ошибка при проверке логов!");
+					}
+				} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
+					System.err.println(element.getName() + " : элемент не найден!");
+				}
+			} else {
+				try {
+					if (ventTempSliderMaxLimitCorrect(element) && ventTempSliderMinLimitCorrect(element)) {
+						helper.printGreen(element.getType() + "_" + element.getName() + " : отработал корректно");
+					} else {
+						System.err.println(element.getName() + " : ошибка при проверке логов!");
+					}
+				} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
+					System.err.println(element.getName() + " : элемент не найден!");
+				}
+			}
+		}
+		// TODO: сократить позже
+	}
+	
+	// Слайдеры типа VENTILATION
+	private boolean ventSpeedSliderMaxLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
 		return LogChecker.checkLogsInBackground(
-				() -> driver.leftSliderMax(elementsCreator.createSliderWithIndex(0)), "DeviceUtils", "speed=" + element.getLimit().getMax()
+				() -> driver.ventLeftSliderMax(elementsCreator.createSliderWithIndex(0)), "DeviceUtils", "speed=" + element.getLimit().getMax()
 		);
 	}
-	private boolean leftSliderMinLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+	private boolean ventSpeedSliderMinLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
 		return LogChecker.checkLogsInBackground(
-				() -> driver.leftSliderMin(elementsCreator.createSliderWithIndex(0)), "DeviceUtils", "speed=" + element.getLimit().getMin()
+				() -> driver.ventLeftSliderMin(elementsCreator.createSliderWithIndex(0)), "DeviceUtils", "speed=" + element.getLimit().getMin()
 		);
 	}
-	private boolean rightSliderMaxLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+	private boolean ventTempSliderMaxLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
 		return LogChecker.checkLogsInBackground(
-				() -> driver.rightSliderMax(elementsCreator.createSliderWithIndex(1)), "DeviceUtils", "speed=" + element.getLimit().getMax()
+				() -> driver.ventRightSliderMax(elementsCreator.createSliderWithIndex(1)), "DeviceUtils", "temperature=" + element.getLimit().getMax() * 1.0
 		);
 	}
-	private boolean rightSliderMinLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+	private boolean ventTempSliderMinLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
 		return LogChecker.checkLogsInBackground(
-				() -> driver.rightSliderMax(elementsCreator.createSliderWithIndex(1)), "DeviceUtils", "speed=" + element.getLimit().getMin()
+				() -> driver.ventRightSliderMin(elementsCreator.createSliderWithIndex(1)), "DeviceUtils", "temperature=" + element.getLimit().getMin() * 1.0
+		);
+	}
+	
+	// Слайдеры типа CONVECTOR
+	private boolean convectorTempSliderMaxLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+		return LogChecker.checkLogsInBackground(
+				() -> driver.ventLeftSliderMax(elementsCreator.createSliderWithIndex(0)), "DeviceUtils", "temperature=" + element.getLimit().getMax() * 1.0
+		);
+	}
+	private boolean convectorTempSliderMinLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+		return LogChecker.checkLogsInBackground(
+				() -> driver.ventLeftSliderMin(elementsCreator.createSliderWithIndex(0)), "DeviceUtils", "temperature=" + element.getLimit().getMin() * 1.0
+		);
+	}
+	private boolean convectorPowerSliderMaxLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+		return LogChecker.checkLogsInBackground(
+				() -> driver.ventRightSliderMax(elementsCreator.createSliderWithIndex(1)), "DeviceUtils", "speed=" + element.getLimit().getMax()
+		);
+	}
+	private boolean convectorPowerSliderMinLimitCorrect(MiddleElement element) throws ExecutionException, InterruptedException, TimeoutException {
+		return LogChecker.checkLogsInBackground(
+				() -> driver.ventRightSliderMin(elementsCreator.createSliderWithIndex(1)), "DeviceUtils", "speed=" + element.getLimit().getMin()
 		);
 	}
 	

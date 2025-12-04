@@ -187,7 +187,7 @@ public class Asp100Tests {
     @Test
     void whenSpeedSliderSwitchedToMinValue_shouldPrintLogsAboutSpeed1() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.leftSliderMin(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=1"
+                () -> driver.ventLeftSliderMin(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=1"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -195,7 +195,7 @@ public class Asp100Tests {
     @Test
     void whenSpeedSliderSwitchedToMidValue_shouldPrintLogsAboutSpeed4() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.leftSliderMid(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=4"
+                () -> driver.ventLeftSliderMid(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=4"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -203,7 +203,7 @@ public class Asp100Tests {
     @Test
     void whenSpeedSliderSwitchedToMaxValue_shouldPrintLogsAboutSpeed7() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.leftSliderMax(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=7"
+                () -> driver.ventLeftSliderMax(BalluAsp100MainScreen.SPEED_SLIDER), "DeviceUtils", "speed=7"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -211,7 +211,7 @@ public class Asp100Tests {
     @Test
     void whenTemperatureSliderSwitchedToMinValue_shouldPrintLogsAbout5Degrees() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.rightSliderMin(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=5.0"
+                () -> driver.ventRightSliderMin(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=5.0"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -219,7 +219,7 @@ public class Asp100Tests {
     @Test
     void whenTemperatureSliderSwitchedToMidValue_shouldPrintLogsAbout15Degrees() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.rightSliderMid(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=15.0"
+                () -> driver.ventRightSliderMid(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=15.0"
         );
         Assertions.assertTrue(logsFound);
     }
@@ -227,7 +227,7 @@ public class Asp100Tests {
     @Test
     void whenTemperatureSliderSwitchedToMaxValue_shouldPrintLogsAbout25Degrees() {
         boolean logsFound = LogChecker.checkLogsInBackground(
-                () -> driver.rightSliderMax(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=25.0"
+                () -> driver.ventRightSliderMax(BalluAsp100MainScreen.TEMPERATURE_SLIDER), "DeviceUtils", "temperature=25.0"
         );
         Assertions.assertTrue(logsFound);
     }

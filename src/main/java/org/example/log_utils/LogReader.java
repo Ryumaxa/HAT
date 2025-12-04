@@ -9,7 +9,7 @@ import java.util.List;
  */
 // TODO: предусмотреть логику фильтрации по ИЛИ
 public class LogReader {
-	public final boolean PRINT_OK_LOGS = false;
+	public final boolean PRINT_OK_LOGS = true;
 	public final boolean PRINT_ALL_LOGS = false;
 	
     private final int logcatDelay;
