@@ -19,7 +19,8 @@ public class SliderTest implements ElementTest<MiddleElement> {
 	private final ElementFilter filter;
 	private final TestHelper helper;
 	private SliderTypes sliderType;
-	// TODO: большая проблема со слайдерами конвектора (В JSON они дублируются для всех диапазонов)
+	// TODO: решить проблему со слайдерами конвектора (В JSON они дублируются для всех диапазонов)
+	// TODO: для конвектора надо брать левый и правый по имени, а не по индексу, т.к. их много
 	
 	
 	public SliderTest(CloseableAndroidDriver driver, ElementsCreator elementsCreator) {
@@ -78,7 +79,7 @@ public class SliderTest implements ElementTest<MiddleElement> {
 		if (filter.isSlider(element)) {
 			if (element.getName().equals("TEMPERATURE")) {
 				try {
-					if (ventSpeedSliderMaxLimitCorrect(element) && ventSpeedSliderMinLimitCorrect(element)) {
+					if (convectorTempSliderMaxLimitCorrect(element) && convectorTempSliderMinLimitCorrect(element)) {
 						helper.printGreen(element.getType() + "_" + element.getName() + " : отработал корректно");
 					} else {
 						System.err.println(element.getName() + " : ошибка при проверке логов!");
@@ -88,7 +89,7 @@ public class SliderTest implements ElementTest<MiddleElement> {
 				}
 			} else {
 				try {
-					if (ventTempSliderMaxLimitCorrect(element) && ventTempSliderMinLimitCorrect(element)) {
+					if (convectorPowerSliderMaxLimitCorrect(element) && convectorPowerSliderMinLimitCorrect(element)) {
 						helper.printGreen(element.getType() + "_" + element.getName() + " : отработал корректно");
 					} else {
 						System.err.println(element.getName() + " : ошибка при проверке логов!");

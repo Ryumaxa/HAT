@@ -17,9 +17,15 @@ public class Sandbox {
     public static void main(String[] args) throws Exception {
 	    UiService uiService = new UiService();
 	    ArrayList<DeviceUi> deviceUis = uiService.getDevicesUi("src/main/resources/devices.json", "src/main/resources/ui_jsons");
-	    ElementsCreator elementsCreator = new ElementsCreator();
-	    CloseableAndroidDriver driver = DriverBuilder.getAndroidDriver();
-		
+	    
+
+	    for (DeviceUi deviceUi : deviceUis) {
+		    System.out.println("|-|-|-|-|-|-|-|------- " + deviceUi.getDeviceName() + " -------|-|-|-|-|-|-|-|");
+			for (MiddleElement e : deviceUi.getMiddleElements()) {
+				System.out.println(e);
+			}
+			
+	    }
 		
 	    
     }

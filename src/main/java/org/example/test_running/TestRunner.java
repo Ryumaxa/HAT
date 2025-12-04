@@ -30,10 +30,6 @@ public class TestRunner {
 		SliderTest sliderTest = new SliderTest(driver, elementsCreator);
 		TestHelper testHelper = new TestHelper(driver, elementsCreator);
 		
-//		for (DeviceUi deviceUi : deviceUis) {
-//			System.out.println(deviceUi);
-//		}
-		
 		for (int i = 0; i < 1; i++) {
 
 			for (DeviceUi deviceUi : deviceUis) {
