@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class SettingElement {
+	private String name;
 	private String type;
 	private String feature;
 	

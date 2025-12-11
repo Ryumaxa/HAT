@@ -20,7 +20,7 @@ public class SliderTest implements ElementTest<MiddleElement> {
 	private final TestHelper helper;
 	private SliderTypes sliderType;
 	// TODO: решить проблему со слайдерами конвектора (В JSON они дублируются для всех диапазонов)
-	// TODO: для конвектора надо брать левый и правый по имени, а не по индексу, т.к. их много
+	// TODO: для конвектора и бочки доделать после того, как реализую парсинг настроек
 	
 	
 	public SliderTest(CloseableAndroidDriver driver, ElementsCreator elementsCreator) {
