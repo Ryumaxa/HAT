@@ -28,7 +28,7 @@ public class SettingElementTest implements ElementTest<SettingElement> {
 	public void run(SettingElement element) {
 		
 		//TODO: дополнить для остальных элементов экрана настроек
-		if (element.getType().equals("switch")) {
+		if (element.getType().equals("SWITCH")) {
 			checkboxTest(element);
 		}
 	}

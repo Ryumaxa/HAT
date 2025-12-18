@@ -52,6 +52,7 @@ public class TestRunner {
 					driver.select(DeviceUi.SETTING_BUTTON);
 					for (SettingElement element : deviceUi.getSettingElements()) {
 						settingElementTest.run(element);
+						System.out.println(element.getType());
 					}
 				}
 			}
