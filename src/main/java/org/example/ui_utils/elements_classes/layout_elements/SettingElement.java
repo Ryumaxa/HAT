@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class SettingElement {
 	private int index;
-	private String name;
+	private String nameEn;
+	private String nameRu;
 	private String type;
 	private String feature;
 	

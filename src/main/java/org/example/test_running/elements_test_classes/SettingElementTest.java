@@ -34,11 +34,12 @@ public class SettingElementTest implements ElementTest<SettingElement> {
 	}
 
 	private void checkboxTest(SettingElement element) {
-		WebElement checkbox = driver.select(elementsCreator.scrollToElementWithText(element.getName()));
+		WebElement checkbox = driver.select(elementsCreator.scrollToElementWithText(element.getNameRu()));
 		String attributeValue = checkbox.getAttribute("checked");
 		boolean isChecked = attributeValue != null && attributeValue.equals("true");
 		if (isChecked) checkbox.click();
 		String udpCommandName = "Cmd" + element.getFeature().substring(0, 1).toUpperCase() + element.getFeature().substring(1);
+		System.out.println(udpCommandName);
 		
 		try {
 			boolean logsFoundOn = LogChecker.checkLogsInBackground(
@@ -49,13 +50,13 @@ public class SettingElementTest implements ElementTest<SettingElement> {
 			);
 			
 			if (!logsFoundOn && !logsFoundOff) {
-				System.err.println(element.getName() + " : ошибка при проверке логов!");
+				System.err.println(element.getNameEn() + " : ошибка при проверке логов!");
 			} else {
-				helper.printGreen(element.getType() + "_" + element.getName() + " : отработал корректно");
+				helper.printGreen(element.getType() + "_" + element.getNameEn() + " : отработал корректно");
 			}
 			
 		} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
-			System.err.println(element.getName() + " : элемент не найден!");
+			System.err.println(element.getNameEn() + " : элемент не найден!");
 		}
 	}
 }

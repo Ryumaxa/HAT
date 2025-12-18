@@ -87,10 +87,11 @@ public class UiMapper {
 		Settings[] settings = root.getLayout().getSettings();
 		ArrayList<SettingElement> settingElements = new ArrayList<>();
 		for (int i = 0; i < settings.length; i++) {
-			String name = findName(settings, i).replace(" ", "_");
+			String nameEn = findName(settings, i, "en-US");
+			String nameRu = findName(settings, i, "ru-RU");
 			String type = findType(settings, i, Settings::getType);
 			String feature = findFeature(settings, i);
-			settingElements.add(new SettingElement(i, name, type, feature));
+			settingElements.add(new SettingElement(i, nameEn, nameRu, type, feature));
 		}
 		return settingElements;
 	}
@@ -115,11 +116,15 @@ public class UiMapper {
 		return top[i].getTitle().get("en-US").toUpperCase();
 	}
 	
-	private String findName(Settings[] settings, int i) {
+	private String findName(Settings[] settings, int i, String lang) {
 		if (settings[i].getTitle() != null) {
-			return settings[i].getTitle().get("en-US").toUpperCase();
+			return settings[i].getTitle().get(lang);
 		} else {
-			return "noname";
+			if (lang.contains("en")) {
+				return "Volume";
+			} else {
+				return "Звук";
+			}
 		}
 	}
 	
@@ -168,7 +173,7 @@ public class UiMapper {
 	
 	private String findFeature(Settings[] settings, int i) {
 		if (settings[i].getFeature() != null) {
-			return settings[i].getFeature().toUpperCase();
+			return settings[i].getFeature();
 		} else {
 			return "no_feature";
 		}

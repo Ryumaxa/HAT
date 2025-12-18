@@ -147,13 +147,13 @@ public class CloseableAndroidDriver extends AndroidDriver implements Closeable {
 	
 	
 
-    public void backToDeviceList() {
-        for (int i = 0; i < 5; i++) {
-            try {
-                this.select(DeviceListScreen.VIEW_CHANGE_BUTTON);
-            } catch (Exception e) {
-                this.navigate().back();
-            }
-        }
-    }
+//    public void backToDeviceList() {
+//        for (int i = 0; i < 5; i++) {
+//            try {
+//                this.select(DeviceListScreen.VIEW_CHANGE_BUTTON);
+//            } catch (Exception e) {
+//                this.navigate().back();
+//            }
+//        }
+//    }
 }

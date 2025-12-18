@@ -2,6 +2,7 @@ package org.example.test_running.elements_test_classes;
 
 import org.example.launch_utils.CloseableAndroidDriver;
 import org.example.log_utils.LogChecker;
+import org.example.screen_elements.device_list.DeviceListScreen;
 import org.example.ui_utils.ElementsCreator;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -34,6 +35,16 @@ public class TestHelper {
 			throw new RuntimeException(e);
 		}
 		return isCardOpened;
+	}
+	
+	public void backToDeviceList() {
+		for (int i = 0; i < 5; i++) {
+			try {
+				driver.select(DeviceListScreen.VIEW_CHANGE_BUTTON);
+			} catch (Exception e) {
+				driver.navigate().back();
+			}
+		}
 	}
 	
 	public void printGreen(String s) {

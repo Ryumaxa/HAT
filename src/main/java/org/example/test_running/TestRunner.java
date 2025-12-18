@@ -8,8 +8,6 @@ import org.example.test_running.elements_test_classes.SliderTest;
 import org.example.test_running.elements_test_classes.TestHelper;
 import org.example.ui_utils.ElementsCreator;
 import org.example.ui_utils.elements_classes.DeviceUi;
-import org.example.ui_utils.elements_classes.layout_elements.BottomElement;
-import org.example.ui_utils.elements_classes.layout_elements.MiddleElement;
 import org.example.ui_utils.elements_classes.layout_elements.SettingElement;
 import org.example.ui_utils.service.UiService;
 
@@ -49,11 +47,14 @@ public class TestRunner {
 //					}
 					
 					System.out.println("----------ТЕСТИРОВАНИЕ НАСТРОЕК----------");
-					driver.select(DeviceUi.SETTING_BUTTON);
+					driver.select(DeviceUi.SETTING_BUTTON).click();
 					for (SettingElement element : deviceUi.getSettingElements()) {
 						settingElementTest.run(element);
-						System.out.println(element.getType());
 					}
+					
+					
+					
+					testHelper.backToDeviceList();
 				}
 			}
 		}
@@ -62,7 +63,7 @@ public class TestRunner {
 		// TODO: добавить в тесты рандом
 		// TODO: добавить нумерацию тестов к выводу (лучше писать отчет в файл в перспективе)
 		// TODO: предусмотреть читаемый формат вывода отчета
-		// TODO: добавить возможность установить число итерация
+		// TODO: добавить возможность установить число итераций
 		// TODO: сделать так, чтобы исключения не ломали тесты
 	}
 }
