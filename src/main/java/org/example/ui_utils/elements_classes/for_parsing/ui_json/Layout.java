@@ -14,6 +14,7 @@ public class Layout {
     private Middle[] middle;
     private Bottom[] bottom;
     private Music[] music;
+    private Settings[] settings;
 
     @Override
     public String toString() {

@@ -20,7 +20,8 @@ public class UiMapper {
 				parseTopElements(root),
 				parseMiddleElements(root),
 				parseBottomElements(root),
-				parseMusicElements(root));
+				parseMusicElements(root),
+				parseSettingElements(root));
 	}
 	
 	public RootElement parseRootElement(Root root) {
@@ -82,6 +83,18 @@ public class UiMapper {
 		return musicElements;
 	}
 	
+	public ArrayList<SettingElement> parseSettingElements(Root root) {
+		Settings[] settings = root.getLayout().getSettings();
+		ArrayList<SettingElement> settingElements = new ArrayList<>();
+		for (int i = 0; i < settings.length; i++) {
+			String name = findName(settings, i).replace(" ", "_");
+			String type = findType(settings, i, Settings::getType);
+			String feature = findFeature(settings, i);
+			settingElements.add(new SettingElement(i, name, type, feature));
+		}
+		return settingElements;
+	}
+	
 	private <T> String findType(T[] elements, int i, Function<T, String> typeExtractor) {
 		return typeExtractor.apply(elements[i]).toUpperCase();
 	}
@@ -100,6 +113,14 @@ public class UiMapper {
 	
 	private String findName(Top[] top, int i) {
 		return top[i].getTitle().get("en-US").toUpperCase();
+	}
+	
+	private String findName(Settings[] settings, int i) {
+		if (settings[i].getTitle() != null) {
+			return settings[i].getTitle().get("en-US").toUpperCase();
+		} else {
+			return "noname";
+		}
 	}
 	
 	private String findName(Music[] music, int i) {
@@ -145,6 +166,14 @@ public class UiMapper {
 		return middle[i].getLimit();
 	}
 	
+	private String findFeature(Settings[] settings, int i) {
+		if (settings[i].getFeature() != null) {
+			return settings[i].getFeature().toUpperCase();
+		} else {
+			return "no_feature";
+		}
+	}
+	
 	public List<BottomElement> getModeButtons(List<BottomElement> bottomElements, Root root) {
 		if (bottomElements.isEmpty()) {
 			bottomElements = this.parseBottomElements(root);
@@ -158,5 +187,5 @@ public class UiMapper {
 		}
 		return musicElements.stream().filter(a -> a.getType().equals("BUTTON")).toList();
 	}
-
+	
 }

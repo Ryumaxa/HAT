@@ -60,17 +60,20 @@ public class DeviceUi {
 	private ArrayList<MiddleElement> middleElements;
 	private ArrayList<BottomElement> bottomElements;
 	private ArrayList<MusicElement> musicElements;
+	private ArrayList<SettingElement> settingElements;
 	
 	public DeviceUi(RootElement rootElement,
 	                ArrayList<TopElement> topElements,
 	                ArrayList<MiddleElement> middleElements,
 	                ArrayList<BottomElement> bottomElements,
-	                ArrayList<MusicElement> musicElements) {
+	                ArrayList<MusicElement> musicElements,
+	                ArrayList<SettingElement> settingElements) {
 		this.rootElement = rootElement;
 		this.topElements = topElements;
 		this.middleElements = middleElements;
 		this.bottomElements = bottomElements;
 		this.musicElements = musicElements;
+		this.settingElements = settingElements;
 	}
 	
 	@Override
@@ -83,6 +86,7 @@ public class DeviceUi {
 				       "\n\tmiddleElements=" + middleElements +
 				       "\n\tbottomElements=" + bottomElements +
 				       "\n\tmusicElements=" + musicElements +
+				       "\n\tsettingElements=" + settingElements +
 				       "\n\t}";
 	}
 }
