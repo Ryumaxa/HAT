@@ -13,6 +13,7 @@ public class SettingElement {
 	private String nameRu;
 	private String type;
 	private String feature;
+	private String field;
 	
 	// TODO: заполнить))))
 }

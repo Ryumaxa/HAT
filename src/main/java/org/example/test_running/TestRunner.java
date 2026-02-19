@@ -36,10 +36,12 @@ public class TestRunner {
 			for (DeviceUi deviceUi : deviceUis) {
 				System.out.println("|-|-|-|-|-|-|-|------- " + deviceUi.getDeviceName() + " -------|-|-|-|-|-|-|-|");
 				if (testHelper.openDeviceCard(deviceUi.getDeviceName(), deviceUi.getType())) {
+				
 //					System.out.println("----------ТЕСТИРОВАНИЕ КНОПОК РЕЖИМОВ----------");
 //					for (BottomElement element : deviceUi.getBottomElements()) {
 //						modeButtonTest.run(element);
 //					}
+
 //					System.out.println("----------ТЕСТИРОВАНИЕ СЛАЙДЕРОВ----------");
 //					sliderTest.determineSliderType(deviceUi.getMiddleElements());
 //					for (MiddleElement element : deviceUi.getMiddleElements()) {
@@ -54,6 +56,7 @@ public class TestRunner {
 					
 					
 					
+					
 					testHelper.backToDeviceList();
 				}
 			}
@@ -65,5 +68,7 @@ public class TestRunner {
 		// TODO: предусмотреть читаемый формат вывода отчета
 		// TODO: добавить возможность установить число итераций
 		// TODO: сделать так, чтобы исключения не ломали тесты
+		
+		// TODO: JSON очень разнородный, надо придумать, как избежать хардкода (например с чекбоксами)
 	}
 }

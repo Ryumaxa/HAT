@@ -32,29 +32,30 @@ public class SettingElementTest implements ElementTest<SettingElement> {
 			checkboxTest(element);
 		}
 	}
-
+	
+	//TODO: внести проверку базового функционала чекбокса
 	private void checkboxTest(SettingElement element) {
 		WebElement checkbox = driver.select(elementsCreator.scrollToElementWithText(element.getNameRu()));
-		String attributeValue = checkbox.getAttribute("checked");
-		boolean isChecked = attributeValue != null && attributeValue.equals("true");
-		if (isChecked) checkbox.click();
-		String udpCommandName = "Cmd" + element.getFeature().substring(0, 1).toUpperCase() + element.getFeature().substring(1);
-		System.out.println(udpCommandName);
+//		String attributeValue = checkbox.getAttribute("checked");
+//		boolean isChecked = attributeValue != null && attributeValue.equals("true");
+//		if (isChecked) checkbox.click();
+		
+		String switchName = "default_switch_name";
+		if (element.getField().equals("no_field")) {
+			switchName = "Cmd" + element.getFeature().substring(0, 1).toUpperCase() + element.getFeature().substring(1);
+		} else if (element.getFeature().equals("no_feature")) {
+			switchName = element.getField();
+		}
 		
 		try {
-			boolean logsFoundOn = LogChecker.checkLogsInBackground(
-					() -> checkbox.click(), "DeviceUtils", udpCommandName, "enabled=1"
+			boolean logsFound = LogChecker.checkLogsInBackground(
+					() -> checkbox.click(), "DeviceUtils", switchName
 			);
-			boolean logsFoundOff = LogChecker.checkLogsInBackground(
-					() -> checkbox.click(), "DeviceUtils", udpCommandName, "enabled=0"
-			);
-			
-			if (!logsFoundOn && !logsFoundOff) {
+			if (!logsFound) {
 				System.err.println(element.getNameEn() + " : ошибка при проверке логов!");
 			} else {
 				helper.printGreen(element.getType() + "_" + element.getNameEn() + " : отработал корректно");
 			}
-			
 		} catch (NoSuchElementException | ExecutionException | InterruptedException | TimeoutException e) {
 			System.err.println(element.getNameEn() + " : элемент не найден!");
 		}

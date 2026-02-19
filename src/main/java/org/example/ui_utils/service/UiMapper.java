@@ -91,7 +91,8 @@ public class UiMapper {
 			String nameRu = findName(settings, i, "ru-RU");
 			String type = findType(settings, i, Settings::getType);
 			String feature = findFeature(settings, i);
-			settingElements.add(new SettingElement(i, nameEn, nameRu, type, feature));
+			String field = findField(settings, i);
+			settingElements.add(new SettingElement(i, nameEn, nameRu, type, feature, field));
 		}
 		return settingElements;
 	}
@@ -176,6 +177,14 @@ public class UiMapper {
 			return settings[i].getFeature();
 		} else {
 			return "no_feature";
+		}
+	}
+	
+	private String findField(Settings[] settings, int i) {
+		if (settings[i].getProgramData() != null) {
+			return settings[i].getProgramData().getField();
+		} else {
+			return "no_field";
 		}
 	}
 	

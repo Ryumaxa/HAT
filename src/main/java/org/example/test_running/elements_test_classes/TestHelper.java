@@ -25,7 +25,7 @@ public class TestHelper {
 					() -> driver.select(elementsCreator.scrollToElementWithText(name)).click(), 15000, "DeviceConnectionViewModel", "deviceType=" + type
 			);
 			if (!isCardOpened) {
-				System.err.println(name + " : не удалось открыть карточку устройства!");
+				System.err.println(name + " : не удалось открыть карточку устройства или связи с устройством нет!");
 			} else {
 				this.printGreen(name + " : карточка устройства успешно открыта");
 			}
